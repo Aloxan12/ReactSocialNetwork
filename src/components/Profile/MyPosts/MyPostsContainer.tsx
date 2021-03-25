@@ -8,11 +8,9 @@ import {
 } from "../../../redux/store";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {StoreReduxType} from "../../../redux/redux-store";
-
-export type MyPostsContainerType = {
-}
-
+import {RootReduxStateType, StoreReduxType} from "../../../redux/redux-store";
+import {InitialStatePostType} from "../../../redux/profile-reducer";
+import {Dispatch} from "redux";
 
     //const MyPostsContainer = (props: MyPostsContainerType) => {
     // return (
@@ -33,17 +31,30 @@ export type MyPostsContainerType = {
     //     }}
     //     </StoreContext.Consumer>
     // )
-    const mapStateToProps = (state: profilePageType)=>{
+
+
+
+type MapStateToPropsType = {
+    profilePage: InitialStatePostType
+}
+type MapDispatchToProps = {
+    onAddPost: (newText: string)=> void,
+    onNewTextChange: (e:ChangeEvent<HTMLTextAreaElement>)=> void
+}
+export type MyPostsPropsType = MapStateToPropsType & MapDispatchToProps
+
+
+    const mapStateToProps = (state: MapStateToPropsType)=>{
         return{
-            profilePage:state,
-            posts: state.posts,
-            newPostText: state.newPostText,
+            profilePage:state.profilePage,
+            posts: state.profilePage.posts,
+            newPostText: state.profilePage.newPostText,
         }
     };
-    const mapDispatchToProps = (dispatch: any)=> {
+    const mapDispatchToProps = (dispatch: Dispatch ): MapDispatchToProps=> {
         return {
-            onAddPost: (newPostText: string) => {
-                dispatch(addPostActionCreate(newPostText))
+            onAddPost: (newText:string) => {
+                dispatch(addPostActionCreate(newText))
                 dispatch(changeNewTextCreate(''))
             },
             onNewTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => {

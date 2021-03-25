@@ -6,6 +6,8 @@ import {ActionType,addMessageActionCreate,changeNewMessageTextCreate,dialogsPage
 import store, {StoreReduxType} from "../../redux/redux-store";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+import {initialStateDialogsType} from "../../redux/dialogs-reducer";
+import { Dispatch } from 'redux';
 
 type DialogsType = {
 }
@@ -34,13 +36,20 @@ type DialogsType = {
 //     );
 // }
 
-
-const mapStateToProps = (state: dialogsPageType)=>{
+type MapStateToPropsType = {
+    dialogsPage: initialStateDialogsType
+}
+type MapDispatchToPropsType = {
+    changeNewMessageText:(e:ChangeEvent<HTMLTextAreaElement>)=>void
+    addMessage:(newMessage: string)=> void
+}
+export type DialogsPropsType = MapDispatchToPropsType & MapStateToPropsType
+const mapStateToProps = (state: MapStateToPropsType)=>{
     return{
-        dialogsPage: state
+        dialogsPage: state.dialogsPage
     }
 }
-const mapDispatchToProps = (dispatch: any)=>{
+const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType=>{
     return{
         changeNewMessageText:(e:ChangeEvent<HTMLTextAreaElement>)=>{
             dispatch(changeNewMessageTextCreate(e.currentTarget.value))

@@ -19,9 +19,9 @@ export let renderEntireTree =()=>{
 
 renderEntireTree()
 
-store.subscribe(()=>{
-    renderEntireTree();
-})
+// store.subscribe(()=>{
+//     renderEntireTree();
+// })
 
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,18 +1,20 @@
 import React, {ChangeEvent} from 'react';
 import classes from "./MyPosts.module.css"
 import Post from './Post';
-import {postType, profilePageType} from "../../../redux/store";
+import {postType} from "../../../redux/store";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-export type MyPostsType = {
-    onAddPost:(newText: string)=> void
-    onNewTextChange:(e:ChangeEvent<HTMLTextAreaElement>)=> void
-    state: profilePageType
-}
+// export type MyPostsType = {
+//     onAddPost:(newText: string)=> void
+//     onNewTextChange:(e:ChangeEvent<HTMLTextAreaElement>)=> void
+//     posts: Array<postType>
+//     newPostText: string
+// }
 
 
 
-const MyPosts = (props: MyPostsType) => {
-  let postsElement = props.state.posts.map( p =>
+const MyPosts = (props: MyPostsPropsType) => {
+  let postsElement = props.profilePage.posts.map( p =>
       <Post message={p.message}
             likeCounts={p.likeCounts}
             id={new Date().getTime()} /> )
@@ -29,7 +31,7 @@ const MyPosts = (props: MyPostsType) => {
       <div>
         <div className={classes.addPostAreaBlock}>
           <textarea
-                    value={props.state.newPostText}
+                    value={props.profilePage.newPostText}
                     onChange={newTextChangeHandler}
           ></textarea>
         </div>

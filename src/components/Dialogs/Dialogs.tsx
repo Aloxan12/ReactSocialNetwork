@@ -10,6 +10,7 @@ import {
     messageType
 } from "../../redux/store";
 import {StoreReduxType} from "../../redux/redux-store";
+import {DialogsPropsType} from "./DialogsContainer";
 
 type DialogsType = {
     changeNewMessageText:(e:ChangeEvent<HTMLTextAreaElement>)=> void
@@ -17,12 +18,9 @@ type DialogsType = {
     addMessage:(textMessage: string)=>void
 }
 
-
-
-
-const Dialogs = (props: DialogsType ) =>{
-    let dialogsElements = props.state.dialogs.map( d =><DialogsItem id={d.id} name={d.name}  /> )
-    let messageElements = props.state.messages.map(m => <Message message={m.message} /> )
+const Dialogs = (props: DialogsPropsType ) =>{
+    let dialogsElements = props.dialogsPage.dialogs.map( d =><DialogsItem id={d.id} name={d.name}  /> )
+    let messageElements = props.dialogsPage.messages.map(m => <Message message={m.message} /> )
 
 
     let addMessage = () =>{
@@ -42,7 +40,7 @@ const Dialogs = (props: DialogsType ) =>{
             <div className={classes.massages}>
                 {messageElements}
                 <div className={classes.addMessage}>
-                    <textarea value={props.state.newMessage} onChange={newTextMessageChange}></textarea>
+                    <textarea value={props.dialogsPage.newMessage} onChange={newTextMessageChange}></textarea>
                     <button onClick={addMessage}>AddMessage</button>
                 </div>
             </div>

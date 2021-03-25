@@ -5,15 +5,15 @@ import navbarReducer from "./navbar-reducer";
 import {StoreType} from "./store";
 
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage:dialogsReducer,
     navbarPage:navbarReducer,
 })
 
-export type RootReduxStateType = ReturnType<typeof reducers>
+export type RootReduxStateType = ReturnType<typeof rootReducer>
 
-let store = createStore(reducers);
+let store = createStore(rootReducer);
 export  type StoreReduxType = typeof store
 
 export default store
