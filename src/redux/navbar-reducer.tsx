@@ -1,4 +1,14 @@
-import {ActionType, friendsType} from "./store";
+
+export type friendType = {
+    id: number
+    name: string
+    src: string
+}
+
+export type ActionType ={}
+type initialStateType = {
+    friends: Array<friendType>
+}
 
 let initialState = {
     friends: [
@@ -8,7 +18,7 @@ let initialState = {
     ],
 }
 
-const navbarReducer = (state: friendsType = initialState, action: ActionType)=>{
+const navbarReducer = (state: initialStateType = initialState, action: ActionType)=>{
 
     return state
 }

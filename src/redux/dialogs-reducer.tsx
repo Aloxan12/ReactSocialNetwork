@@ -1,4 +1,3 @@
-import {ActionType} from "./store";
 
 type messageType = {
     id: number
@@ -28,6 +27,7 @@ let initialState: initialStateDialogsType = {
     ] as Array<dialogsType>,
     newMessage:'Hello'
 }
+type ActionType = ReturnType<typeof addMessageActionCreate> | ReturnType<typeof changeNewMessageTextCreate>
 
 const dialogsReducer = (state: initialStateDialogsType = initialState, action: ActionType): initialStateDialogsType=>{
     switch (action.type){
@@ -62,13 +62,13 @@ const dialogsReducer = (state: initialStateDialogsType = initialState, action: A
             return state
     }
 }
-const addMessageActionCreate =(messageText:string)=>{
+export const addMessageActionCreate =(messageText:string)=>{
     return{
         type:'ADD-MESSAGE',
         postMessage: messageText
     }as const
 }
-const changeNewMessageTextCreate =(newText:string)=>{
+export const changeNewMessageTextCreate =(newText:string)=>{
     return{
         type:'UPDATE-YOUR-MESSAGE-TEXT',
         newText: newText

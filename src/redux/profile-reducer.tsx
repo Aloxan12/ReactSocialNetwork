@@ -1,5 +1,5 @@
-import {ActionType} from "./store";
 
+type ActionType = ReturnType<typeof addPostActionCreate> | ReturnType<typeof changeNewTextCreate>
 export const addPostActionCreate = (postText: string) => {
     return {
         type: 'ADD-POST',
@@ -12,7 +12,7 @@ export const changeNewTextCreate = (newText: string) => {
         newText: newText
     } as const
 }
-type postType = {
+export type postType = {
     id: number
     message: string
     likeCounts: number

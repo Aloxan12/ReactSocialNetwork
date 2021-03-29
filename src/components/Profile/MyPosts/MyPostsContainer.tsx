@@ -1,16 +1,9 @@
 import React, {ChangeEvent} from 'react';
-import classes from "./MyPosts.module.css"
-import Post from './Post';
-import {
-    addPostActionCreate,
-    changeNewTextCreate,
-    profilePageType
-} from "../../../redux/store";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {RootReduxStateType, StoreReduxType} from "../../../redux/redux-store";
-import {InitialStatePostType} from "../../../redux/profile-reducer";
+import {addPostActionCreate, changeNewTextCreate, InitialStatePostType, postType} from "../../../redux/profile-reducer";
 import {Dispatch} from "redux";
+import {RootReduxStateType} from "../../../redux/redux-store";
 
     //const MyPostsContainer = (props: MyPostsContainerType) => {
     // return (
@@ -36,6 +29,8 @@ import {Dispatch} from "redux";
 
 type MapStateToPropsType = {
     profilePage: InitialStatePostType
+    posts: Array<postType>
+    newPostText: string
 }
 type MapDispatchToProps = {
     onAddPost: (newText: string)=> void,
@@ -44,7 +39,7 @@ type MapDispatchToProps = {
 export type MyPostsPropsType = MapStateToPropsType & MapDispatchToProps
 
 
-    const mapStateToProps = (state: MapStateToPropsType)=>{
+    const mapStateToProps = (state: RootReduxStateType ): MapStateToPropsType=>{
         return{
             profilePage:state.profilePage,
             posts: state.profilePage.posts,

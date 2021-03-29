@@ -1,8 +1,7 @@
 import React from 'react';
 import classes  from './../Navbar.module.css';
 import Friend from "./Friend/Friend";
-import {friendsType} from "../../../redux/store";
-import {NavbarType} from "../Navbar";
+import {friendsType} from "../Navbar";
 
 export type FriendsType = {
     state:friendsType
