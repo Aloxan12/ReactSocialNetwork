@@ -23,7 +23,7 @@ type LocationType = {
     country: string
 }
 export type InitialStateUsersType  = {
-    users: Array<usersType>
+    users: Array<any>
 }
 
 let initialState: InitialStateUsersType = {

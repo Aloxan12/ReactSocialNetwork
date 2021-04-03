@@ -4,6 +4,7 @@ import Users from "./Users";
 import {followAC, InitialStateUsersType, setUsersAC, unfollowAC, usersType} from "../../redux/users-reducer";
 import {Dispatch} from "redux";
 import {RootReduxStateType, StoreReduxType} from "../../redux/redux-store";
+import UsersC from "./UsersС";
 
 
 export type MapStateToPropsType = {
@@ -12,7 +13,7 @@ export type MapStateToPropsType = {
 export type MapDispatchToPropsType = {
     follow: (userID: string) => void
     unfollow: (userID: string) =>void
-    setUsers: (users: Array<usersType>)=>void
+    setUsers: (users: Array<any>)=>void
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -29,11 +30,11 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         unfollow: (userID: string) => {
             dispatch(unfollowAC(userID))
         },
-        setUsers: (users: Array<usersType>) => {
+        setUsers: (users: Array<any>) => {
             dispatch(setUsersAC(users))
         }
     }
 }
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC)
 
 export default UsersContainer
