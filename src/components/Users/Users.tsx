@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import userPhoto from "../../assets/images/user.png";
 import styles from "./users.module.css";
 
@@ -9,8 +10,8 @@ type UsersType = {
     currentPage: number,
     users: Array<any>,
     onPageChanged: (pageNumber: number) => void
-    unfollow: (userID: string) => void
-    follow: (userID: string) => void
+    unfollow: (userId: string) => void
+    follow: (userId: string) => void
 }
 
 export const Users = (props: UsersType) => {
@@ -26,8 +27,10 @@ export const Users = (props: UsersType) => {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photos.small != null ? u.photos.small : userPhoto}
-                                 className={styles.UsersPhoto}/>
+                           <NavLink to={'/profile/' + u.id}>
+                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                     className={styles.UsersPhoto}/>
+                           </NavLink>
                         </div>
                         <div>
                             {u.followed

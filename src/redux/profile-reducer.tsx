@@ -1,5 +1,6 @@
+import {ProfileType} from "../components/Profile/ProfileContainer";
 
-type ActionType = ReturnType<typeof addPostActionCreate> | ReturnType<typeof changeNewTextCreate>
+
 export const addPostActionCreate = (postText: string) => {
     return {
         type: 'ADD-POST',
@@ -12,6 +13,14 @@ export const changeNewTextCreate = (newText: string) => {
         newText: newText
     } as const
 }
+export const setUserProfile = (profile: ProfileType) => {
+    return {
+        type: 'SET_USER_PROFILE',
+        profile
+    } as const
+}
+type ActionType = ReturnType<typeof addPostActionCreate> | ReturnType<typeof changeNewTextCreate> | ReturnType<typeof setUserProfile>
+
 export type postType = {
     id: number
     message: string
@@ -20,14 +29,36 @@ export type postType = {
 export type InitialStatePostType  = {
     posts: Array<postType>
     newPostText: string
+    profile:ProfileType
 }
 
-let initialState: InitialStatePostType = {
+export let initialState: InitialStatePostType = {
     posts: [
-        {id: 1, message: "Hello, It is my first massage", likeCounts: 15},
+        {id: 1,message: "Hello, It is my first massage", likeCounts: 15},
         {id: 2, message: "Hello, I am Lesha", likeCounts: 30},
     ],
-    newPostText: ""
+    newPostText: "",
+    profile:{
+        "aboutMe": "я круто чувак 1001%",
+        "contacts": {
+            "facebook": "facebook.com",
+            "website": null,
+            "vk": "vk.com/dimych",
+            "twitter": "https://twitter.com/@sdf",
+            "instagram": "instagra.com/sds",
+            "youtube": null,
+            "github": "github.com",
+            "mainLink": null
+        },
+        "lookingForAJob": true,
+        "lookingForAJobDescription": "не ищу, а дурачусь",
+        "fullName": "samurai dimych",
+        "userId": 2,
+        "photos": {
+            "small": "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
+            "large": "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
+        }
+    }
 }
 
 export const profileReducer = (state: InitialStatePostType = initialState, action: ActionType):InitialStatePostType => {
@@ -38,26 +69,18 @@ export const profileReducer = (state: InitialStatePostType = initialState, actio
                 ...state,
                 newPostText: '',
                 posts: [...state.posts, {id: 8, message: newPost, likeCounts: 0}]
-
-            // let newPost: postType = {
-            //     id: new Date().getTime(),
-            //     message: action.postMessage,
-            //     likeCounts: 0
-            // const stateCopy = {...state}
-            // stateCopy.posts = [...state.posts]
-            // stateCopy.posts.push(newPost)
-            // stateCopy.newPostText = ''
-            // return stateCopy
         }}
         case "UPDATE-YOUR-POST-TEXT": {
             return {
                 ...state,
                 newPostText: action.newText
             }
-            // const stateCopy = {...state}
-            // stateCopy.posts = [...stateCopy.posts]
-            // stateCopy.newPostText = action.newText;
-            // return stateCopy
+        }
+        case "SET_USER_PROFILE":{
+            return {
+                ...state,
+                profile: action.profile
+            }
         }
         default:
             return state

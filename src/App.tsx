@@ -10,6 +10,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 import {StoreReduxType} from "./redux/redux-store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import WithURLDataContainerComponent from "./components/Profile/ProfileContainer";
 
 export type AppType = {
   store:StoreReduxType
@@ -22,7 +24,7 @@ const App: React.FC<AppType> = (props) => {
       <Header />
       <Navbar state={state.navbarPage}/>
       <div className="app-wrapper-content">
-        <Route path='/profile' render={() => <Profile />} />
+        <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
         <Route path='/dialogs' render={() => <DialogsContainer />}  />
         <Route path='/users' render={() => <UsersContainer /> }  />
         <Route path='/music' render={() => <Music />} />
