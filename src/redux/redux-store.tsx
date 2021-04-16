@@ -3,6 +3,7 @@ import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
 import usersReducer from "./users-reducer";
+import authReducer from "./auth-reducer";
 
 
 let rootReducer = combineReducers({
@@ -10,6 +11,7 @@ let rootReducer = combineReducers({
     dialogsPage:dialogsReducer,
     navbarPage:navbarReducer,
     users:usersReducer,
+    auth: authReducer
 })
 
 export type RootReduxStateType = ReturnType<typeof rootReducer>
