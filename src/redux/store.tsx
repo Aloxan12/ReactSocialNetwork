@@ -1,8 +1,4 @@
 import React from "react";
-// import profileReducer, {addPostActionCreate, changeNewTextCreate} from "./profile-reducer";
-// import dialogsReducer, {addMessageActionCreate, changeNewMessageTextCreate} from "./dialogs-reducer";
-// import navbarReducer from "./navbar-reducer";
-// import {followAC, unfollowAC} from "./users-reducer";
 //
 // export type messageType = {
 //     id: number
