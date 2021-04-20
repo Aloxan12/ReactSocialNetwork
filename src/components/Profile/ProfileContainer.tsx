@@ -37,7 +37,7 @@ type ContactsType = {
     "instagram": string | null,
     "youtube": string | null,
     "github": string | null,
-    "mainLink": string | null
+    "mainLink": string | null,
 }
 type PhotoType = {
     small: string | undefined

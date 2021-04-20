@@ -1,9 +1,9 @@
 import React from "react";
-// import preloader from "../../../assets/images/loader.gif";
+import preloader from "../../../assets/images/users.jpg";
 
 const Preloader = ()=>{
     return <div>
-        <img src=""/>
+        <img src={preloader}/>
     </div>
 }
 export default Preloader
