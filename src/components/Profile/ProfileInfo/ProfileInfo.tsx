@@ -18,7 +18,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
                      className={classes.mainimg}/>
             </div>
             <div>
-                {props.profile.userId}!!!
+                {props.profile.userId} - my id!!!
                 <img src={props.profile.photos.small}/>
                 <h1>Привет, меня зовут {props.profile.fullName}</h1>
                 <p> работа: {props.profile.lookingForAJobDescription}</p>
