@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./users.module.css";
 import {UsersPropsType} from "./UsersContainer";
-import * as axios from 'axios'
 import userPhoto from '../../assets/images/user.png'
 
 
@@ -42,9 +41,9 @@ export const UsersOld = (props: UsersPropsType) => {
             //         photoUrl: 'https://i.pinimg.com/originals/45/bf/e7/45bfe7aee375cb2fab3f9b7393d4c886.jpg',
             //     },
             // ])
-            axios.default.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                props.setUsers(response.data.items)
-            });
+            // axios.default.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            //     props.setUsers(response.data.items)
+            // });
         }
     }
     return (

@@ -1,4 +1,6 @@
 import {ProfileType} from "../components/Profile/ProfileContainer";
+import {Dispatch} from "redux";
+import {UsersAPI} from "../api/api";
 
 
 export const addPostActionCreate = (postText: string) => {
@@ -18,6 +20,11 @@ export const setUserProfile = (profile: ProfileType) => {
         type: 'SET_USER_PROFILE',
         profile
     } as const
+}
+export const getUserProfile = (userId: string) =>(dispatch: Dispatch)=> {
+    return UsersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data))
+    });
 }
 type ActionType = ReturnType<typeof addPostActionCreate> | ReturnType<typeof changeNewTextCreate> | ReturnType<typeof setUserProfile>
 
