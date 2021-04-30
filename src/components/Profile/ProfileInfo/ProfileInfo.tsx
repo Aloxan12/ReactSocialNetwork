@@ -2,6 +2,7 @@ import React from 'react';
 import classes from "./ProfileInfo.module.css"
 import Preloader from "../../Common/Preloader/Preloader";
 import {ProfileType} from "../ProfileContainer";
+import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoType = {
     profile: ProfileType
@@ -18,6 +19,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
                      className={classes.mainimg}/>
             </div>
             <div>
+                <ProfileStatus status={'Hello, its me'} />
                 {props.profile.userId} - my id!!!
                 <img src={props.profile.photos.small}/>
                 <h1>Привет, меня зовут {props.profile.fullName}</h1>
