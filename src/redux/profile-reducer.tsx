@@ -38,7 +38,7 @@ export let initialState: InitialStatePostType = {
             "mainLink": null
         },
         "lookingForAJob": true,
-        "lookingForAJobDescription": "не ищу, а дурачусь",
+        "lookingForAJobDescription": "не ищу, а дурачусь!!!",
         "fullName": "samurai dimych",
         "userId": 2,
         "photos": {

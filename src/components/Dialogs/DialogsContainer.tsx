@@ -4,14 +4,11 @@ import {connect} from "react-redux";
 import {addMessageActionCreate, changeNewMessageTextCreate, initialStateDialogsType} from "../../redux/dialogs-reducer";
 import {compose, Dispatch} from 'redux';
 import {RootReduxStateType} from "../../redux/redux-store";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {mapStateToPropsForRedirectType, withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type MapStateToPropsType = {
     dialogsPage: initialStateDialogsType
-}
-export type mapStateToPropsForRedirectType = {
-    isAuth:boolean
 }
 type MapDispatchToPropsType = {
     changeNewMessageText:(e:ChangeEvent<HTMLTextAreaElement>)=>void

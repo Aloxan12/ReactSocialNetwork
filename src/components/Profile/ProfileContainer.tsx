@@ -19,7 +19,6 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     }
 
     render() {
-        if (!this.props.isAuth) return <Redirect to='/login'/>
         return (
             <div className={classes.content}>
                 <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus} />
@@ -55,7 +54,6 @@ export type ProfileType = {
 
 type MapStateToPropsType = {
     profile: ProfileType
-    isAuth: boolean
     status: string
 }
 type MapDispatchToPropsType = {
@@ -73,7 +71,6 @@ export type ProfileUsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 const mapStateToProps =(state: RootReduxStateType): MapStateToPropsType=>{
     return {
         profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth,
         status: state.profilePage.status
     }
 }
