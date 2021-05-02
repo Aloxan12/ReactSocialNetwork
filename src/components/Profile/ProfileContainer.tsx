@@ -74,13 +74,9 @@ const mapStateToProps =(state: RootReduxStateType): MapStateToPropsType=>{
         status: state.profilePage.status
     }
 }
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-let WithURLDataContainerComponent = withRouter(AuthRedirectComponent);
 
-compose(
-    connect(mapStateToProps, {getUserProfile}),
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
-
-export default connect(mapStateToProps, {getUserProfile, getStatus, updateStatus})(WithURLDataContainerComponent);

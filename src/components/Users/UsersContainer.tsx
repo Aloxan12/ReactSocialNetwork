@@ -70,7 +70,9 @@ const mapStateToProps = (state: RootReduxStateType): MapStateToPropsType => {
         followingIsProgress: state.users.followingIsProgress
     }
 }
-compose(
+
+
+export default compose<React.ComponentType>(
     withAuthRedirect,
     connect(mapStateToProps, {
         follow,
@@ -81,13 +83,3 @@ compose(
     })
 )
 (UsersAPIComponent)
-
-const UsersContainer = connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    toggleFollowingIsProgress,
-    getUsers,
-})(UsersAPIComponent)
-
-export default withAuthRedirect(UsersContainer)
