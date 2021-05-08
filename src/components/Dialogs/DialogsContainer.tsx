@@ -11,7 +11,6 @@ type MapStateToPropsType = {
     dialogsPage: initialStateDialogsType
 }
 type MapDispatchToPropsType = {
-    changeNewMessageText:(e:ChangeEvent<HTMLTextAreaElement>)=>void
     addMessage:(newMessage: string)=> void
 }
 export type DialogsPropsType = MapDispatchToPropsType & MapStateToPropsType & mapStateToPropsForRedirectType
@@ -23,12 +22,8 @@ const mapStateToProps = (state: RootReduxStateType): MapStateToPropsType=>{
 }
 const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType=>{
     return{
-        changeNewMessageText:(e:ChangeEvent<HTMLTextAreaElement>)=>{
-            dispatch(changeNewMessageTextCreate(e.currentTarget.value))
-        },
         addMessage:(newMessage: string)=>{
             dispatch(addMessageActionCreate(newMessage))
-            dispatch(changeNewMessageTextCreate(''))
         }
     }
 }

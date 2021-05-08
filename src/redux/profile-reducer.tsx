@@ -4,7 +4,7 @@ import {ProfileAPI, UsersAPI} from "../api/api";
 
 
 
-type ActionType = ReturnType<typeof addPostActionCreate> | ReturnType<typeof changeNewTextCreate> | ReturnType<typeof setUserProfile>
+type ActionType = ReturnType<typeof addPostActionCreate> | ReturnType<typeof setUserProfile>
 | ReturnType<typeof setStatus>
 
 export type postType = {
@@ -14,7 +14,6 @@ export type postType = {
 }
 export type InitialStatePostType  = {
     posts: Array<postType>
-    newPostText: string
     profile:ProfileType
     status: string
 }
@@ -24,7 +23,6 @@ export let initialState: InitialStatePostType = {
         {id: 1,message: "Hello, It is my first massage", likeCounts: 15},
         {id: 2, message: "Hello, I am Lesha", likeCounts: 30},
     ],
-    newPostText: "",
     profile:{
         "aboutMe": "я круто чувак 1001%",
         "contacts": {
@@ -52,18 +50,11 @@ export let initialState: InitialStatePostType = {
 export const profileReducer = (state: InitialStatePostType = initialState, action: ActionType):InitialStatePostType => {
     switch (action.type) {
         case "ADD-POST": {
-            const newPost = state.newPostText
+            const newPost = action.postMessage
             return {
                 ...state,
-                newPostText: '',
                 posts: [...state.posts, {id: 8, message: newPost, likeCounts: 0}]
         }}
-        case "UPDATE-YOUR-POST-TEXT": {
-            return {
-                ...state,
-                newPostText: action.newText
-            }
-        }
         case "SET_USER_PROFILE":{
             return {
                 ...state,
@@ -86,12 +77,6 @@ export const addPostActionCreate = (postText: string) => {
     return {
         type: 'ADD-POST',
         postMessage: postText
-    } as const
-}
-export const changeNewTextCreate = (newText: string) => {
-    return {
-        type: 'UPDATE-YOUR-POST-TEXT',
-        newText: newText
     } as const
 }
 export const setUserProfile = (profile: ProfileType) => {

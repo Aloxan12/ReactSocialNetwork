@@ -1,6 +1,5 @@
 import React, {ComponentType} from "react";
 import {Redirect} from "react-router-dom";
-import Dialogs from "../components/Dialogs/Dialogs";
 import {RootReduxStateType} from "../redux/redux-store";
 import {connect} from "react-redux";
 
