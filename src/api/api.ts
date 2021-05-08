@@ -7,6 +7,13 @@ const instance = axios.default.create({
         "API-KEY": "07c457bc-e742-4380-afc8-e78bc10fd120"
     }
 })
+export type ThunkLoginType = {
+    resultCode: number
+    messages: string[],
+        data: {
+    userId: number
+}
+}
 
 export const UsersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
@@ -46,13 +53,19 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`)
             .then(response => {
-                return response.data
+                return response
+            })
+    },
+    login(email: string, password: string, rememberMe: boolean = false){
+        return instance.post<ThunkLoginType>(`auth/login`, {email, password, rememberMe})
+            .then(response => {
+                return response
+            })
+    },
+    logout(){
+        return instance.delete(`auth/login`)
+            .then(response => {
+                return response
             })
     }
-}
-export const getUsers2 = (currentPage = 1, pageSize = 10) => {
-    return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-        .then(response => {
-            return response.data
-        })
 }
