@@ -3,8 +3,6 @@ import Header from "./Header";
 import {connect} from "react-redux";
 import {getAuthUsersData, InitialStateAuthType, logout, setAuthUserData} from "../../redux/auth-reducer";
 import {RootReduxStateType} from "../../redux/redux-store";
-import {ThunkDispatch} from "redux-thunk";
-import {AnyAction} from "redux";
 
 class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount() {

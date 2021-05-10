@@ -22,27 +22,27 @@ export const UsersAPI = {
                 return response.data
             })
     },
-    unfollow(id: number) {
+    unfollow(id: number | null) {
         return instance.delete(`follow/${id}`)
             .then(response => {
                 return response.data
             })
     },
-    follow(id: number) {
+    follow(id: number | null) {
         return instance.post(`follow/${id}`)
             .then(response => {
                 return response.data
             })
     },
-    getProfile(userId: string) {
+    getProfile(userId: number | null) {
         return ProfileAPI.getProfile(userId)
     }
 }
 export const ProfileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: number | null) {
         return instance.get(`profile/` + userId)
     },
-    getStatus(userId: string) {
+    getStatus(userId: number | null) {
         return instance.get(`profile/status/` + userId)
     },
     updateStatus(status: string) {

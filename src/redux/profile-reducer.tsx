@@ -91,12 +91,12 @@ export const setStatus = (status: string) => {
         status
     } as const
 }
-export const getUserProfile = (userId: string) =>(dispatch: Dispatch)=> {
+export const getUserProfile = (userId: number | null) =>(dispatch: Dispatch)=> {
     return UsersAPI.getProfile(userId).then(response => {
         dispatch(setUserProfile(response.data))
     });
 }
-export const getStatus = (userId: string) =>(dispatch: Dispatch)=> {
+export const getStatus = (userId: number | null) =>(dispatch: Dispatch)=> {
     return ProfileAPI.getStatus(userId)
         .then(response => {
         dispatch(setStatus(response.data))
