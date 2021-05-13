@@ -1,5 +1,5 @@
 import {authAPI} from "../api/api";
-import { stopSubmit} from "redux-form";
+import {stopSubmit} from "redux-form";
 import {AppThunk} from "./redux-store";
 
 export const SET_USER_DATA = "SET_USER_DATA"

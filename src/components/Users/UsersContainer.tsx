@@ -11,6 +11,13 @@ import {Users} from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {
+    getCurrentPageSelector,
+    getFollowingIsProgressSelector,
+    getIsFetchingSelector,
+    getPageSizeSelector, getTotalUsersCountsSelector,
+    getUsersSelector
+} from "../../redux/users-selectors";
 
 
 export type MapStateToPropsType = {
@@ -60,14 +67,24 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
 
 }
 
+// const mapStateToProps = (state: RootReduxStateType): MapStateToPropsType => {
+//     return {
+//         usersPage: state.users,
+//         pageSize: state.users.pageSize,
+//         totalUsersCounts: state.users.totalUsersCounts,
+//         currentPage: state.users.currentPage,
+//         isFetching: state.users.isFetching,
+//         followingIsProgress: state.users.followingIsProgress
+//     }
+// }
 const mapStateToProps = (state: RootReduxStateType): MapStateToPropsType => {
     return {
-        usersPage: state.users,
-        pageSize: state.users.pageSize,
-        totalUsersCounts: state.users.totalUsersCounts,
-        currentPage: state.users.currentPage,
-        isFetching: state.users.isFetching,
-        followingIsProgress: state.users.followingIsProgress
+        usersPage:getUsersSelector(state),
+        pageSize: getPageSizeSelector(state),
+        totalUsersCounts: getTotalUsersCountsSelector(state),
+        currentPage: getCurrentPageSelector(state),
+        isFetching:getIsFetchingSelector(state),
+        followingIsProgress: getFollowingIsProgressSelector(state)
     }
 }
 
