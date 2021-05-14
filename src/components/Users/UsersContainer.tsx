@@ -4,13 +4,12 @@ import {
     toggleFollowingIsProgress,
     InitialStateUsersType,
     setCurrentPage,
-    getUsers, follow, unfollow,
+    getUsers, follow, unfollow, UserType,
 } from "../../redux/users-reducer";
 import {RootReduxStateType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import {compose} from "redux";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {
     getCurrentPageSelector,
     getFollowingIsProgressSelector,
@@ -21,7 +20,7 @@ import {
 
 
 export type MapStateToPropsType = {
-    usersPage: InitialStateUsersType
+    users:Array<UserType>
     pageSize: number
     totalUsersCounts: number
     currentPage: number
@@ -34,6 +33,7 @@ export type MapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number) => void
     toggleFollowingIsProgress: (isFetching: boolean, userId: number) => void
     getUsers: (currentPage: number, pageSize: number) => void
+    onPageChanged: (pageNumber: number) => void
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -54,12 +54,15 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                 <Users totalUsersCounts={this.props.totalUsersCounts}
                        pageSize={this.props.pageSize}
                        currentPage={this.props.currentPage}
-                       users={this.props.usersPage.users}
+                       users={this.props.users}
                        onPageChanged={this.onPageChanged}
                        unfollow={this.props.unfollow}
                        follow={this.props.follow}
                        toggleFollowingIsProgress={this.props.toggleFollowingIsProgress}
                        followingIsProgress={this.props.followingIsProgress}
+                       getUsers={this.props.getUsers}
+                       isFetching={this.props.isFetching}
+                       setCurrentPage={this.props.setCurrentPage}
                 />
             </>
         )
@@ -79,7 +82,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
 // }
 const mapStateToProps = (state: RootReduxStateType): MapStateToPropsType => {
     return {
-        usersPage:getUsersSelector(state),
+        users:getUsersSelector(state),
         pageSize: getPageSizeSelector(state),
         totalUsersCounts: getTotalUsersCountsSelector(state),
         currentPage: getCurrentPageSelector(state),

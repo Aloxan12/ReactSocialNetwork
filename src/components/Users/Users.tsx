@@ -2,21 +2,10 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import userPhoto from "../../assets/images/user.png";
 import styles from "./users.module.css";
+import {UsersPropsType} from "./UsersContainer";
 
 
-type UsersType = {
-    totalUsersCounts: number,
-    pageSize: number,
-    currentPage: number,
-    users: Array<any>,
-    onPageChanged: (pageNumber: number) => void
-    unfollow: (userId: number) => void
-    follow: (userId: number) => void
-    toggleFollowingIsProgress: (isFetching:boolean, userId: number)=> void
-    followingIsProgress: Array<number>
-}
-
-export const Users = (props: UsersType) => {
+export const Users = (props: UsersPropsType) => {
     let pageCount = Math.ceil(props.totalUsersCounts / props.pageSize)
 
     let pages = []
