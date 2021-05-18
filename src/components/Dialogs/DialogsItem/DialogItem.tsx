@@ -9,7 +9,7 @@ export type DialogsItemType = {
     id: number
 }
 
-const DialogsItem = (props:DialogsItemType) =>{
+const DialogsItem = React.memo((props:DialogsItemType) =>{
     let path = "/dialogs/" + props.id;
     return (
         <div className= {classes.dialog + ' ' + classes.active}>
@@ -21,6 +21,6 @@ const DialogsItem = (props:DialogsItemType) =>{
             </NavLink>
         </div>
     )
-}
+})
 
 export default DialogsItem;

@@ -7,7 +7,7 @@ export type FriendsType = {
     state:friendsType
 }
 
-const Friends = (props: FriendsType)=>{
+const Friends = React.memo((props: FriendsType)=>{
     let friendsElements = props.state.friends.map( d =><Friend id={d.id} name={d.name} src={d.src}  /> )
     return (
         <div>
@@ -19,5 +19,5 @@ const Friends = (props: FriendsType)=>{
             </div>
         </div>
     )
-}
+})
 export default Friends;

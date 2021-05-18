@@ -48,7 +48,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
-const Login = (props:any) => {
+const Login = React.memo((props:any) => {
     const  isAuth = useSelector((state:RootReduxStateType)=> state.auth.isAuth)
     let onSubmit =(formData: FormDataType)=>{
         props.login(formData.email, formData.password, formData.rememberMe)
@@ -63,6 +63,6 @@ const Login = (props:any) => {
             <LoginReduxForm onSubmit={onSubmit} />
         </div>
     )
-}
+})
 
 export default connect(null, {login})(Login)

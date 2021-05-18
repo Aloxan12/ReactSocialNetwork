@@ -8,7 +8,7 @@ export type NewMessageFormValuesType = {
 }
 
 const maxLength50 = maxLengthCreator(50)
-const AddMessageForm: React.FC<InjectedFormProps<NewMessageFormValuesType>> = (props) => {
+const AddMessageForm: React.FC<InjectedFormProps<NewMessageFormValuesType>> = React.memo((props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -23,5 +23,5 @@ const AddMessageForm: React.FC<InjectedFormProps<NewMessageFormValuesType>> = (p
             </div>
         </form>
     )
-}
+})
 export default reduxForm<NewMessageFormValuesType>({form: 'dialogAddMessageForm'})(AddMessageForm)

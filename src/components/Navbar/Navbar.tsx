@@ -12,7 +12,7 @@ export type NavbarType = {
     state: friendsType
 }
 
-const Navbar = (props: NavbarType) => {
+const Navbar = React.memo((props: NavbarType) => {
     return (<nav className={classes.nav}>
             <div className={classes.item}>
                 <NavLink to="/profile" activeClassName={classes.activLink}>Profile</NavLink>
@@ -37,5 +37,5 @@ const Navbar = (props: NavbarType) => {
             </div>
         </nav>
     )
-}
+})
 export default Navbar;

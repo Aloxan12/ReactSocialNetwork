@@ -5,7 +5,7 @@ import Message from './Message/Message'
 import {DialogsPropsType} from "./DialogsContainer";
 import AddMessageForm, { NewMessageFormValuesType} from "./AddMessageForm/AddMessageForm";
 
-const Dialogs = (props: DialogsPropsType ) =>{
+const Dialogs = React.memo((props: DialogsPropsType ) =>{
     let dialogsElements = props.dialogsPage.dialogs.map( d =><DialogsItem id={d.id} name={d.name}  /> )
     let messageElements = props.dialogsPage.messages.map(m => <Message message={m.message} /> )
 
@@ -26,6 +26,6 @@ const Dialogs = (props: DialogsPropsType ) =>{
             </div>
         </div>
     );
-}
+})
 
 export default Dialogs;

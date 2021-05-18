@@ -8,7 +8,7 @@ import {Textarea} from "../../Common/FormsControls/FormsControls";
 
 
 
-const MyPosts = (props: MyPostsPropsType) => {
+const MyPosts = React.memo((props: MyPostsPropsType) => {
   let postsElement = props.profilePage.posts.map( p =>
       <Post message={p.message}
             likeCounts={p.likeCounts}
@@ -37,7 +37,7 @@ const MyPosts = (props: MyPostsPropsType) => {
       </div>
     </div>
   )
-}
+})
 
 type FormDataType = {
     textarea: string

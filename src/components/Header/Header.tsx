@@ -5,7 +5,7 @@ import {HeaderContainerType} from "./HeaderContainer";
 import {useDispatch} from "react-redux";
 import {logout} from "../../redux/auth-reducer";
 
-const Header = (props: HeaderContainerType) => {
+const Header = React.memo((props: HeaderContainerType) => {
 
     const dispatch = useDispatch()
     const logoutCallback = () => {
@@ -24,5 +24,5 @@ const Header = (props: HeaderContainerType) => {
             </div>
         </header>
     );
-}
+})
 export default Header;

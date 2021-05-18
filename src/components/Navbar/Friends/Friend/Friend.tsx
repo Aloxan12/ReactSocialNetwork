@@ -8,7 +8,7 @@ export type FriendType = {
     src: string
 }
 
-const Friends = (props: FriendType)=>{
+const Friends = React.memo((props: FriendType)=>{
     let path = "/Navbar/" + props.id;
     return (
         <div>
@@ -20,5 +20,5 @@ const Friends = (props: FriendType)=>{
             </NavLink>
         </div>
     )
-}
+})
 export default Friends;

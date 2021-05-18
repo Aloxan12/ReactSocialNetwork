@@ -5,7 +5,7 @@ import styles from "./users.module.css";
 import {UsersPropsType} from "./UsersContainer";
 
 
-export const Users = (props: UsersPropsType) => {
+export const Users = React.memo ((props: UsersPropsType) => {
     let pageCount = Math.ceil(props.totalUsersCounts / props.pageSize)
 
     let pages = []
@@ -55,4 +55,4 @@ export const Users = (props: UsersPropsType) => {
             </div>
         </div>
     )
-}
+})
