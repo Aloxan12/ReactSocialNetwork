@@ -1,11 +1,12 @@
 import {ProfileType} from "../components/Profile/ProfileContainer";
 import {Dispatch} from "redux";
 import {ProfileAPI, UsersAPI} from "../api/api";
+import {rename} from "fs";
 
 
 
-type ActionType = ReturnType<typeof addPostActionCreate> | ReturnType<typeof setUserProfile>
-| ReturnType<typeof setStatus>
+type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof setUserProfile>
+| ReturnType<typeof setStatus> | deleteActionType
 
 export type postType = {
     id: number
@@ -55,6 +56,11 @@ export const profileReducer = (state: InitialStatePostType = initialState, actio
                 ...state,
                 posts: [...state.posts, {id: 8, message: newPost, likeCounts: 0}]
         }}
+        case "REMOVE-POST":
+            return {
+            ...state,
+            posts: state.posts.filter(p=> p.id != action.postId)
+        }
         case "SET_USER_PROFILE":{
             return {
                 ...state,
@@ -73,12 +79,19 @@ export const profileReducer = (state: InitialStatePostType = initialState, actio
     }
 }
 
-export const addPostActionCreate = (postText: string) => {
+export const addPostAC = (postText: string) => {
     return {
         type: 'ADD-POST',
         postMessage: postText
     } as const
 }
+export const deletePostAC = (postId: number) => {
+    return {
+        type: 'REMOVE-POST',
+        postId
+    } as const
+}
+export type deleteActionType = ReturnType<typeof deletePostAC>
 export const setUserProfile = (profile: ProfileType) => {
     return {
         type: 'SET_USER_PROFILE',

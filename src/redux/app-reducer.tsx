@@ -4,8 +4,6 @@ import {getAuthUsersData} from "./auth-reducer";
 
 export const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS"
 
-
-
 type ActionType = ReturnType<typeof initializedSuccess>
 
 export type InitialStateAuthType = {
@@ -27,8 +25,6 @@ export const appReducer = (state: InitialStateAuthType = initialState, action: A
             return state
     }
 }
-
-
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS} as const)
 export const initializedApp = ():AppThunk => {
     return (dispatch) => {

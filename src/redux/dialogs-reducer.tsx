@@ -25,7 +25,8 @@ let initialState: initialStateDialogsType = {
         { id: 5, name: "Bob"},
     ] as Array<dialogsType>
 }
-type ActionType = ReturnType<typeof addMessageActionCreate> | ReturnType<typeof changeNewMessageTextCreate>
+type ActionType = ReturnType<typeof addMessageAC> | ReturnType<typeof changeNewMessageTextCreate>
+| ReturnType<typeof removeMessageAC>
 
 const dialogsReducer = (state: initialStateDialogsType = initialState, action: ActionType): initialStateDialogsType=>{
     switch (action.type){
@@ -36,6 +37,11 @@ const dialogsReducer = (state: initialStateDialogsType = initialState, action: A
                 messages: [...state.messages, {id: 6, message: message}]
             }
         }
+        case "REMOVE-MESSAGE":
+            return {
+                ...state,
+                messages: state.messages.filter(m=>m.id != action.messageId)
+            }
         case "UPDATE-YOUR-MESSAGE-TEXT":{
             return {
                 ...state,
@@ -45,10 +51,16 @@ const dialogsReducer = (state: initialStateDialogsType = initialState, action: A
             return state
     }
 }
-export const addMessageActionCreate =(messageText:string)=>{
+export const addMessageAC =(messageText:string)=>{
     return{
         type:'ADD-MESSAGE',
         postMessage: messageText
+    }as const
+}
+export const removeMessageAC =(messageId:number)=>{
+    return{
+        type:'REMOVE-MESSAGE',
+        messageId
     }as const
 }
 export const changeNewMessageTextCreate =(newText:string)=>{

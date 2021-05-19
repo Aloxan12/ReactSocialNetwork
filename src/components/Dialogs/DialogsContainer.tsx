@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react'
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {addMessageActionCreate, changeNewMessageTextCreate, initialStateDialogsType} from "../../redux/dialogs-reducer";
+import {addMessageAC, changeNewMessageTextCreate, initialStateDialogsType} from "../../redux/dialogs-reducer";
 import {compose, Dispatch} from 'redux';
 import {RootReduxStateType} from "../../redux/redux-store";
 import {mapStateToPropsForRedirectType, withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -23,7 +23,7 @@ const mapStateToProps = (state: RootReduxStateType): MapStateToPropsType=>{
 const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType=>{
     return{
         addMessage:(newMessage: string)=>{
-            dispatch(addMessageActionCreate(newMessage))
+            dispatch(addMessageAC(newMessage))
         }
     }
 }
