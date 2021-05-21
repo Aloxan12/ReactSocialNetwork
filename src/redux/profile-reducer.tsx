@@ -1,7 +1,6 @@
 import {ProfileType} from "../components/Profile/ProfileContainer";
 import {Dispatch} from "redux";
 import {ProfileAPI, UsersAPI} from "../api/api";
-import {rename} from "fs";
 
 
 
@@ -104,24 +103,19 @@ export const setStatus = (status: string) => {
         status
     } as const
 }
-export const getUserProfile = (userId: number | null) =>(dispatch: Dispatch)=> {
-    return UsersAPI.getProfile(userId).then(response => {
+export const getUserProfile = (userId: number | null) =>async (dispatch: Dispatch)=> {
+    const response = await UsersAPI.getProfile(userId)
         dispatch(setUserProfile(response.data))
-    });
 }
-export const getStatus = (userId: number | null) =>(dispatch: Dispatch)=> {
-    return ProfileAPI.getStatus(userId)
-        .then(response => {
+export const getStatus = (userId: number | null) =>async (dispatch: Dispatch)=> {
+     const response = await ProfileAPI.getStatus(userId)
         dispatch(setStatus(response.data))
-    });
 }
-export const updateStatus = (status: string) =>(dispatch: Dispatch)=> {
-    return ProfileAPI.updateStatus(status)
-        .then(response => {
+export const updateStatus = (status: string) => async (dispatch: Dispatch)=> {
+    const response = await ProfileAPI.updateStatus(status)
             if(response.data.resultCode === 0){
                 dispatch(setStatus(status))
             }
-    });
 }
 
 export default profileReducer

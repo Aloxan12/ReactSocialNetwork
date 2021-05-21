@@ -35,7 +35,6 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <Field component={Input}
                        name={'rememberMe'}
                        type={'checkbox'}
-                       validate={[required]}
                 /> remember me
             </div>
             {props.error &&<div className={style.someError}>{props.error}</div>}
