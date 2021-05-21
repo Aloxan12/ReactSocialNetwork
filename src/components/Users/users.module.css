@@ -2,26 +2,3 @@
     width: 100px;
     height: 100px;
 }
-.selectedPage{
-    color: yellow;
-    font-weight: bold;
-}
-.pageBlock{
-    background-color: grey;
-    padding: 10px;
-    max-width: 600px;
-    max-height: 100px;
-    word-wrap: break-word;
-    border: 1px solid grey;
-    border-radius: 10px;
-    margin: 5px auto;
-    overflow: auto;
-}
-.pageBlock span{
-    word-spacing: 7px;
-    padding: 4px;
-}
-.pageBlock span:hover{
-    background-color: yellow;
-    transition: 1s;
-}

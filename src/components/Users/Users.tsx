@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import userPhoto from "../../assets/images/user.png";
+import { Paginator } from "../Common/Paginator/Paginator";
 import styles from "./users.module.css";
 import {UsersPropsType} from "./UsersContainer";
 
@@ -45,14 +46,15 @@ export const Users = React.memo ((props: UsersPropsType) => {
                     </span>
                 </div>)
             }
-            <div className={styles.pageBlock}>
-                {pages.map(p => {
-                    return <span className={props.currentPage === p ? styles.selectedPage : ""}
-                                 onClick={(e) => {
-                                     props.onPageChanged(p)
-                                 }}>{p}</span>
-                })}
-            </div>
+            <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} pageSize={props.pageSize} totalUsersCounts={props.totalUsersCounts}  />
+            {/*<div className={styles.pageBlock}>*/}
+            {/*    {pages.map(p => {*/}
+            {/*        return <span className={props.currentPage === p ? styles.selectedPage : ""}*/}
+            {/*                     onClick={(e) => {*/}
+            {/*                         props.onPageChanged(p)*/}
+            {/*                     }}>{p}</span>*/}
+            {/*    })}*/}
+            {/*</div>*/}
         </div>
     )
 })
