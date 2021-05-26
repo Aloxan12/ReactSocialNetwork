@@ -6,7 +6,7 @@ export type friendType = {
 }
 
 export type ActionType ={}
-type initialStateType = {
+export type initialStateType = {
     friends: Array<friendType>
 }
 
@@ -18,7 +18,7 @@ let initialState = {
     ],
 }
 
-const navbarReducer = (state: initialStateType = initialState, action: ActionType)=>{
+const navbarReducer = (state: initialStateType = initialState, action: ActionType):initialStateType=>{
 
     return state
 }

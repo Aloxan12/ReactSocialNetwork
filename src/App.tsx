@@ -14,6 +14,7 @@ import {compose} from "redux";
 import {initializedApp} from "./redux/app-reducer";
 import Preloader from "./components/Common/Preloader/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
+import {initialStateType} from "./redux/navbar-reducer";
 
 const DialogsContainer = React.lazy(()=>import ("./components/Dialogs/DialogsContainer"));
 const ProfileContainer = React.lazy(()=>import ("./components/Profile/ProfileContainer"));
@@ -50,7 +51,7 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
 
 type mapStateToPropsType = {
   initialized: boolean
-  stateForNavbar: any
+  stateForNavbar: initialStateType
 }
 type mapDispatchToPropsType = {
   initializedApp:()=>void
