@@ -3,17 +3,20 @@ import classes from "./Profile.module.css"
 import ProfileInfo from "./ProfileInfo/ProfileInfo"
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "./ProfileContainer";
+import {savePhoto} from "../../redux/profile-reducer";
 
 type ProfilePropsType = {
     profile: ProfileType
     status: string
     updateStatus:(status: string)=> void
+    savePhoto:(file: File)=> void
+    isOwner:boolean
 }
 
 const Profile = React.memo((props: ProfilePropsType) => {
   return (
     <div className={classes.content}>
-      <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+      <ProfileInfo profile={props.profile} savePhoto={props.savePhoto} status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner}/>
       <MyPostsContainer />
     </div>
   )

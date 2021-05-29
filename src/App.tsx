@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import Music from './components/Music/Music';
 import News from './components/News/News';
 import Setting from './components/Setting/Setting';
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route, withRouter} from "react-router-dom";
 import store, {RootReduxStateType} from "./redux/redux-store";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -31,7 +31,7 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
     if (!this.props.initialized) {
       return <Preloader/>
     }
-    return <BrowserRouter>
+    return <HashRouter>
       <div className="app-wrapper">
         <HeaderContainer />
         <Navbar state={this.props.stateForNavbar}/>
@@ -45,7 +45,7 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
           <Route path='/setting' render={() => <Setting/>}/>
         </div>
       </div>
-    </BrowserRouter>;
+    </HashRouter>;
   }
 }
 
@@ -67,7 +67,7 @@ let AppClass = compose<React.ComponentType>(
     connect(mapStateToProps,{initializedApp}))(App);
 
 const AppContainer: React.FC = () => {
-  return <BrowserRouter>
+  return <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
       <AppClass />
     </Provider>

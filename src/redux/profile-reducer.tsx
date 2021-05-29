@@ -1,11 +1,12 @@
 import {ProfileType} from "../components/Profile/ProfileContainer";
 import {Dispatch} from "redux";
 import {ProfileAPI, UsersAPI} from "../api/api";
+import {PhotosType} from "./users-reducer";
 
 
 
 type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof setUserProfile>
-| ReturnType<typeof setStatus> | deleteActionType
+| ReturnType<typeof setStatus> | deleteActionType | ReturnType<typeof savePhotoSuccess>
 
 export type postType = {
     id: number
@@ -72,6 +73,9 @@ export const profileReducer = (state: InitialStatePostType = initialState, actio
                 status: action.status
             }
         }
+        case "SAVE_PHOTO_SUCCESS":{
+            return {...state, profile:{...state.profile, photos: action.photo}as ProfileType}
+        }
         default:
             return state
 
@@ -103,6 +107,13 @@ export const setStatus = (status: string) => {
         status
     } as const
 }
+
+export const savePhotoSuccess = (photo: PhotosType) => {
+    return {
+        type: 'SAVE_PHOTO_SUCCESS',
+        photo
+    } as const
+}
 export const getUserProfile = (userId: number | null) =>async (dispatch: Dispatch)=> {
     const response = await UsersAPI.getProfile(userId)
         dispatch(setUserProfile(response.data))
@@ -115,6 +126,12 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch)=> {
     const response = await ProfileAPI.updateStatus(status)
             if(response.data.resultCode === 0){
                 dispatch(setStatus(status))
+            }
+}
+export const savePhoto = (file: File) => async (dispatch: Dispatch)=> {
+    const response = await ProfileAPI.savePhoto(file)
+            if(response.data.resultCode === 0){
+                dispatch(savePhotoSuccess(response.data.photos))
             }
 }
 
