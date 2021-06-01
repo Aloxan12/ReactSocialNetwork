@@ -26,14 +26,20 @@ export const appReducer = (state: InitialStateAuthType = initialState, action: A
     }
 }
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS} as const)
-export const initializedApp = ():AppThunk => {
-    return (dispatch) => {
+
+export const initializedApp = () => (dispatch: any) => {
         let promise = dispatch(getAuthUsersData());
         Promise.all([promise])
             .then(()=>{
                 dispatch(initializedSuccess())
             })
-    }
+            .catch((e) => {
+                //go fo pizza
+                console.log(e)
+            })
+            .finally(() => {
+                //dispatch(initializedSuccess(error))
+            })
 }
 
 

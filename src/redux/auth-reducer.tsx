@@ -43,11 +43,15 @@ export const authReducer = (state: InitialStateAuthType = initialState, action: 
 
 export const getAuthUsersData = ():AppThunk => {
     return async (dispatch) => {
-        const res = await authAPI.me();
+        try {
+            const res = await authAPI.me();
             if (res.data.resultCode === 0) {
                 let {id, login, email} = res.data.data
                 dispatch(setAuthUserData(id, login, email, true))
             }
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
 export const login = (email: string, password: string, rememberMe: boolean):AppThunk => {
@@ -62,7 +66,7 @@ export const login = (email: string, password: string, rememberMe: boolean):AppT
     }
 }
 export const logout = ():AppThunk => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         const res = await authAPI.logout()
             if (res.data.resultCode === 0) {
                 dispatch(setAuthUserData(null, null, null, false))
