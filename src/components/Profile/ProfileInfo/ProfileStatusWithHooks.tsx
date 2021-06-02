@@ -25,7 +25,7 @@ const ProfileStatusWithHooks = React.memo( (props: ProfileStatusType) => {
         <div>
             {!editMode &&
                 <div>
-                    <span onDoubleClick={activeEditMode}>{props.status || '----'}</span>
+                    <b>Status:</b><span onDoubleClick={activeEditMode}>{props.status || '----'}</span>
                 </div>}
             {editMode &&
             <div>

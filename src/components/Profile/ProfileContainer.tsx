@@ -44,15 +44,15 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     }
 }
 
-type ContactsType = {
-    "facebook": string | null,
-    "website": string | null,
-    "vk": string | null,
-    "twitter": string | null,
-    "instagram": string | null,
-    "youtube": string | null,
-    "github": string | null,
-    "mainLink": string | null,
+export type ContactsType = {
+    "facebook": string,
+    "website": string,
+    "vk": string,
+    "twitter": string,
+    "instagram": string,
+    "youtube": string,
+    "github": string,
+    "mainLink": string,
 }
 type PhotoType = {
     small: string | undefined
