@@ -2,11 +2,12 @@ import React from 'react';
 import classes from "./Profile.module.css"
 import Profile from './Profile';
 import {connect} from "react-redux";
-import {getStatus, getUserProfile, savePhoto, updateStatus} from "../../redux/profile-reducer";
+import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profile-reducer";
 import {RootReduxStateType} from "../../redux/redux-store";
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {PhotosType} from "../../redux/users-reducer";
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
     refreshProfile(){
@@ -59,13 +60,13 @@ type PhotoType = {
     large: string | undefined
 }
 export type ProfileType = {
-    "aboutMe": string | null,
-    "contacts": ContactsType,
-    "lookingForAJob": boolean | null,
-    "lookingForAJobDescription": string | null,
-    "fullName": string | null,
-    "userId": number | null,
-    "photos": PhotoType
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+    aboutMe: string
 }
 
 
@@ -75,6 +76,7 @@ type MapDispatchToPropsType = {
     getUserProfile:(userId: number | null)=> void
     getStatus:(userId: number | null)=> void
     updateStatus:(status: string)=> void
+    saveProfile: (profile: ProfileType) => Promise<any>
     savePhoto:(file: File)=> void
 }
 type PathParamType = {
@@ -94,7 +96,7 @@ const mapStateToProps =(state: RootReduxStateType)=>{
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto}),
+    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

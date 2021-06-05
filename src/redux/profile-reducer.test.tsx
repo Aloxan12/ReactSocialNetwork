@@ -10,13 +10,13 @@ let state:InitialStatePostType = {
         "aboutMe": "я круто чувак 1001%",
         "contacts": {
             "facebook": "facebook.com",
-            "website": null,
+            "website": '',
             "vk": "vk.com/dimych",
             "twitter": "https://twitter.com/@sdf",
             "instagram": "instagra.com/sds",
-            "youtube": null,
+            "youtube": 'null',
             "github": "github.com",
-            "mainLink": null
+            "mainLink": 'null'
         },
         "lookingForAJob": true,
         "lookingForAJobDescription": "не ищу, а дурачусь!!!",

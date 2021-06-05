@@ -2,6 +2,8 @@ import {ProfileType} from "../components/Profile/ProfileContainer";
 import {Dispatch} from "redux";
 import {ProfileAPI, UsersAPI} from "../api/api";
 import {PhotosType} from "./users-reducer";
+import {AppThunk} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 
 
@@ -114,25 +116,40 @@ export const savePhotoSuccess = (photo: PhotosType) => {
         photo
     } as const
 }
-export const getUserProfile = (userId: number | null) =>async (dispatch: Dispatch)=> {
+export const getUserProfile = (userId: number | null):AppThunk =>async (dispatch)=> {
     const response = await UsersAPI.getProfile(userId)
         dispatch(setUserProfile(response.data))
 }
-export const getStatus = (userId: number | null) =>async (dispatch: Dispatch)=> {
+export const getStatus = (userId: number | null):AppThunk =>async (dispatch)=> {
      const response = await ProfileAPI.getStatus(userId)
         dispatch(setStatus(response.data))
 }
-export const updateStatus = (status: string) => async (dispatch: Dispatch)=> {
+export const updateStatus = (status: string):AppThunk => async (dispatch)=> {
     const response = await ProfileAPI.updateStatus(status)
             if(response.data.resultCode === 0){
                 dispatch(setStatus(status))
             }
 }
-export const savePhoto = (file: File) => async (dispatch: Dispatch)=> {
+export const savePhoto = (file: File): AppThunk => async (dispatch)=> {
     const response = await ProfileAPI.savePhoto(file)
             if(response.data.resultCode === 0){
                 dispatch(savePhotoSuccess(response.data.photos))
             }
+}
+
+export const saveProfile = (profile: ProfileType): AppThunk => async (dispatch, getState)=> {
+    const userId = getState().auth.id
+    const data = await ProfileAPI.saveProfile(profile)
+    if(data.resultCode === 0){
+        if(userId != null){
+        dispatch(getUserProfile(userId))
+        } else {
+            throw new Error("userId can't be null")
+        }
+    } else {
+        dispatch(stopSubmit("edit-profile", {_error: data.messages[0] }))
+        return Promise.reject(data.messages[0])
+    }
 }
 
 export default profileReducer

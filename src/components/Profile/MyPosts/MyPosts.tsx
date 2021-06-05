@@ -11,6 +11,7 @@ import {Textarea} from "../../Common/FormsControls/FormsControls";
 const MyPosts = React.memo((props: MyPostsPropsType) => {
   let postsElement = props.profilePage.posts.map( p =>
       <Post message={p.message}
+            key={p.id}
             likeCounts={p.likeCounts}
             id={new Date().getTime()} /> )
 
