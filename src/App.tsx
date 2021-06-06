@@ -8,7 +8,7 @@ import {BrowserRouter, HashRouter, Route, withRouter} from "react-router-dom";
 import store, {RootReduxStateType} from "./redux/redux-store";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
+import {Login} from './components/Login/Login';
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializedApp} from "./redux/app-reducer";

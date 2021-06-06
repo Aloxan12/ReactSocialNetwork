@@ -39,6 +39,38 @@ export const UsersAPI = {
         return ProfileAPI.getProfile(userId)
     }
 }
+export enum ResultCodeForCapcthaEnum {
+    CaptchaIsRequired = 10
+}
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
+            .then(response => {
+                return response
+            })
+    },
+    login(email: string, password: string, rememberMe: boolean = false, captcha: null | string = null){
+        return instance.post<ThunkLoginType>(`auth/login`, {email, password, rememberMe, captcha})
+            .then(response => {
+                return response
+            })
+    },
+    logout(){
+        return instance.delete(`auth/login`)
+            .then(response => {
+                return response
+            })
+    }
+}
+type GetCaptchaUrlResponseType = {
+    url: string
+}
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get<GetCaptchaUrlResponseType>(`security/get-captcha-url`).then(res => res.data)
+    }
+}
+
 export const ProfileAPI = {
     getProfile(userId: number | null) {
         return instance.get(`profile/` + userId)
@@ -60,25 +92,5 @@ export const ProfileAPI = {
     },
     saveProfile(profile: ProfileType){
         return instance.put(`profile`, profile).then(res => res.data);
-    }
-}
-export const authAPI = {
-    me() {
-        return instance.get(`auth/me`)
-            .then(response => {
-                return response
-            })
-    },
-    login(email: string, password: string, rememberMe: boolean = false){
-        return instance.post<ThunkLoginType>(`auth/login`, {email, password, rememberMe})
-            .then(response => {
-                return response
-            })
-    },
-    logout(){
-        return instance.delete(`auth/login`)
-            .then(response => {
-                return response
-            })
     }
 }
