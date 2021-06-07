@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import Music from './components/Music/Music';
 import News from './components/News/News';
 import Setting from './components/Setting/Setting';
-import {BrowserRouter, HashRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter, Redirect, Route, withRouter} from "react-router-dom";
 import store, {RootReduxStateType} from "./redux/redux-store";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -23,19 +23,29 @@ const SuspendedDialogs = withSuspense(DialogsContainer)
 const SuspendedProfile = withSuspense(ProfileContainer)
 
 class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
+  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+    alert('Some error occured')
+  }
+
   componentDidMount() {
-    this.props.initializedApp();
+    this.props.initializedApp()
+    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
   }
 
   render() {
     if (!this.props.initialized) {
       return <Preloader/>
     }
-    return <HashRouter>
+    return <BrowserRouter>
       <div className="app-wrapper">
         <HeaderContainer />
         <Navbar state={this.props.stateForNavbar}/>
         <div className="app-wrapper-content">
+          <Route path='/' render={() => <Redirect to={'/profile'}/>}/>
           <Route path='/profile/:userId?' render={() => <SuspendedProfile/>}/>
           <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
           <Route path='/users' render={() => <UsersContainer/>}/>
@@ -45,7 +55,7 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
           <Route path='/setting' render={() => <Setting/>}/>
         </div>
       </div>
-    </HashRouter>;
+    </BrowserRouter>;
   }
 }
 
