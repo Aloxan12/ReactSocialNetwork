@@ -1,9 +1,9 @@
 import React from 'react';
-import {ContactsType, ProfileType} from "../ProfileContainer";
 import {createField, GetStringKeys, Input, Textarea} from "../../Common/FormsControls/FormsControls";
 import classes from "./ProfileInfo.module.css"
 import {reduxForm, InjectedFormProps} from "redux-form";
 import style from "../../Common/FormsControls/FormsControls.module.css";
+import {ProfileType} from "../../../redux/types/types";
 
 type PropsType = {
     profile: ProfileType

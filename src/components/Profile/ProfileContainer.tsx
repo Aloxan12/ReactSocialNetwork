@@ -7,7 +7,7 @@ import {RootReduxStateType} from "../../redux/redux-store";
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import {PhotosType} from "../../redux/users-reducer";
+import {ProfileType} from "../../redux/types/types";
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
     refreshProfile(){
@@ -43,30 +43,6 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
             </div>
         )
     }
-}
-
-export type ContactsType = {
-    "facebook": string,
-    "website": string,
-    "vk": string,
-    "twitter": string,
-    "instagram": string,
-    "youtube": string,
-    "github": string,
-    "mainLink": string,
-}
-type PhotoType = {
-    small: string | undefined
-    large: string | undefined
-}
-export type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsType
-    photos: PhotosType
-    aboutMe: string
 }
 
 

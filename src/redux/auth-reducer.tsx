@@ -5,11 +5,27 @@ import {AppThunk} from "./redux-store";
 export const SET_USER_DATA = "SET_USER_DATA"
 export const UNFOLLOW = "UNFOLLOW"
 
+type setAuthUserPayloadActionType = {
+    id:number | null,
+    login: string | null,
+    email: string | null,
+    isAuth: boolean
+}
+type setAuthUserDataActionType = {
+    type: typeof SET_USER_DATA
+    payload: setAuthUserPayloadActionType
+}
 
-export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) => ({
+export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean): setAuthUserDataActionType => ({
     type: SET_USER_DATA, payload: {id, login, email, isAuth}
 } as const)
-export const getCaptchaUrlSuccess =(captchaUrl: string )=>({type:'GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}}as const)
+
+
+type getCaptchaUrlSuccessActionType = {
+    type: 'GET_CAPTCHA_URL_SUCCESS',
+    payload: {captchaUrl: string},
+}
+export const getCaptchaUrlSuccess =(captchaUrl: string ): getCaptchaUrlSuccessActionType=>({type:'GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}}as const)
 
 type ActionType = ReturnType<typeof setAuthUserData> | ReturnType<typeof getCaptchaUrlSuccess>
 

@@ -1,14 +1,12 @@
-import {ProfileType} from "../components/Profile/ProfileContainer";
-import {Dispatch} from "redux";
 import {ProfileAPI, UsersAPI} from "../api/api";
-import {PhotosType} from "./users-reducer";
 import {AppThunk} from "./redux-store";
 import {stopSubmit} from "redux-form";
+import {PhotosType, ProfileType} from "./types/types";
 
 
 
 type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof setUserProfile>
-| ReturnType<typeof setStatus> | deleteActionType | ReturnType<typeof savePhotoSuccess>
+| ReturnType<typeof setStatus> | deletePostActionType | ReturnType<typeof savePhotoSuccess>
 
 export type postType = {
     id: number
@@ -83,39 +81,43 @@ export const profileReducer = (state: InitialStatePostType = initialState, actio
 
     }
 }
-
-export const addPostAC = (postText: string) => {
+type addPostActionType = {type: 'ADD-POST', postMessage: string}
+export const addPostAC = (postText: string):addPostActionType => {
     return {
         type: 'ADD-POST',
         postMessage: postText
     } as const
 }
-export const deletePostAC = (postId: number) => {
+type deletePostActionType = {type: 'REMOVE-POST',postId: number}
+export const deletePostAC = (postId: number):deletePostActionType => {
     return {
         type: 'REMOVE-POST',
         postId
     } as const
 }
-export type deleteActionType = ReturnType<typeof deletePostAC>
-export const setUserProfile = (profile: ProfileType) => {
+type setUserProfileActionType = {type: 'SET_USER_PROFILE',profile: ProfileType}
+export const setUserProfile = (profile: ProfileType): setUserProfileActionType => {
     return {
         type: 'SET_USER_PROFILE',
         profile
     } as const
 }
-export const setStatus = (status: string) => {
+type setStatusActionType = {type: 'SET_STATUS',status: string}
+export const setStatus = (status: string):setStatusActionType => {
     return {
         type: 'SET_STATUS',
         status
     } as const
 }
-
-export const savePhotoSuccess = (photo: PhotosType) => {
+type savePhotoSuccessType = {type: 'SAVE_PHOTO_SUCCESS',photo:PhotosType}
+export const savePhotoSuccess = (photo: PhotosType):savePhotoSuccessType => {
     return {
         type: 'SAVE_PHOTO_SUCCESS',
         photo
     } as const
 }
+
+
 export const getUserProfile = (userId: number | null):AppThunk =>async (dispatch)=> {
     const response = await UsersAPI.getProfile(userId)
         dispatch(setUserProfile(response.data))

@@ -7,11 +7,10 @@ type dialogsType = {
     id: number
     name: string
 }
-export type initialStateDialogsType = {
-    messages: Array<messageType>
-    dialogs:Array<dialogsType>
-}
-let initialState: initialStateDialogsType = {
+
+export type initialStateType = typeof initialState
+
+let initialState = {
     messages: [
         { id: 1, message: "Hi"},
         { id: 2, message: "I am here"},
@@ -28,7 +27,7 @@ let initialState: initialStateDialogsType = {
 type ActionType = ReturnType<typeof addMessageAC> | ReturnType<typeof changeNewMessageTextCreate>
 | ReturnType<typeof removeMessageAC>
 
-const dialogsReducer = (state: initialStateDialogsType = initialState, action: ActionType): initialStateDialogsType=>{
+const dialogsReducer = (state: initialStateType = initialState, action: ActionType): initialStateType=>{
     switch (action.type){
         case "ADD-MESSAGE":{
             const message = action.postMessage

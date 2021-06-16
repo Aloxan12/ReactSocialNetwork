@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {UsersAPI} from "../api/api";
+import {UserType} from "./types/types";
 
 export const FOLLOW = "FOLLOW"
 export const UNFOLLOW = "UNFOLLOW"
@@ -26,17 +27,7 @@ type ActionType = ReturnType<typeof unfollowSuccess> | ReturnType<typeof followS
     | ReturnType<typeof toggleFollowingIsProgress>
 
 
-export type UserType = {
-    id: number
-    name: string
-    status: string
-    photos: PhotosType
-    followed: boolean
-}
-export type PhotosType = {
-    small: string | null
-    large: string | null
-}
+
 export type InitialStateUsersType = {
     users: Array<UserType>
     pageSize: number
