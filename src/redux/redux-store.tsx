@@ -1,4 +1,4 @@
-import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
+import {Action, AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
@@ -24,5 +24,9 @@ let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 export type StoreReduxType = typeof store
 
 export type AppThunk <ReturnType = void> = ThunkAction<ReturnType, RootReduxStateType, unknown, AnyAction>
+
+export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+
+export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, RootReduxStateType, unknown, A>
 
 export default store

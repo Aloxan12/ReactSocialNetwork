@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {ProfileType} from "../redux/types/types";
+import {ProfileType, UserType} from "../redux/types/types";
 
 const instance = axios.default.create({
     withCredentials: true,
@@ -8,6 +8,25 @@ const instance = axios.default.create({
         "API-KEY": "07c457bc-e742-4380-afc8-e78bc10fd120"
     }
 })
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1
+}
+export enum ResultCodeForCapcthaEnum {
+    CaptchaIsRequired = 10
+}
+export type GetItemsType = {
+    items: Array<UserType>
+    totalCount: number
+    error: string | null
+}
+export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
+    data: D
+    messages: Array<string>
+    resultCode: RC
+}
+
+
 export type ThunkLoginType = {
     resultCode: number
     messages: string[],
@@ -38,9 +57,6 @@ export const UsersAPI = {
     getProfile(userId: number | null) {
         return ProfileAPI.getProfile(userId)
     }
-}
-export enum ResultCodeForCapcthaEnum {
-    CaptchaIsRequired = 10
 }
 export const authAPI = {
     me() {

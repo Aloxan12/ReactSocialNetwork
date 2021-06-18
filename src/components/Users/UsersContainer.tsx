@@ -1,8 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    toggleFollowingIsProgress,
-    setCurrentPage,
     getUsers, follow, unfollow,
 } from "../../redux/users-reducer";
 import {RootReduxStateType} from "../../redux/redux-store";
@@ -96,8 +94,6 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         follow,
         unfollow,
-        setCurrentPage,
-        toggleFollowingIsProgress,
         getUsers,
     })
 )
