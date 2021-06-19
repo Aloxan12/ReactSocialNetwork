@@ -26,7 +26,6 @@ export const authReducer = (state = initialState, action: ActionsType): InitialS
     }
 }
 
-
 export const actions = {
     getCaptchaUrlSuccess:(captchaUrl: string )=>({type:'GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}}as const),
     setAuthUserData: (id: number | null, login: string | null, email: string | null, isAuth: boolean) => ({
@@ -44,14 +43,14 @@ export const getAuthUsersData = (): ThunkType =>async (dispatch) => {
 }
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => {
     return async (dispatch) => {
-        const res = await authAPI.login(email, password, rememberMe, captcha)
-        if (res.data.resultCode === 0) {
+        const data = await authAPI.login(email, password, rememberMe, captcha)
+        if (data.resultCode === ResultCodesEnum.Success) {
             dispatch(getAuthUsersData())
         }else {
-            if (res.data.resultCode === ResultCodeForCapcthaEnum.CaptchaIsRequired) {
+            if (data.resultCode === ResultCodeForCapcthaEnum.CaptchaIsRequired) {
                 dispatch(getCaptchaUrl());
             }
-            let message = res.data.messages.length > 0 ? res.data.messages[0] : 'some error'
+            let message = data.messages.length > 0 ? data.messages[0] : 'some error'
             dispatch(stopSubmit('login', {_error: message}))
         }
     }
@@ -65,8 +64,8 @@ export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
 
 export const logout = (): ThunkType => {
     return async (dispatch) => {
-        const res = await authAPI.logout()
-        if (res.data.resultCode === 0) {
+        const data = await authAPI.logout()
+        if (data.resultCode === ResultCodesEnum.Success) {
             dispatch(actions.setAuthUserData(null, null, null, false))
         }
     }

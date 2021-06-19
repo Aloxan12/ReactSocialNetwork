@@ -7,7 +7,7 @@ import ProfileDataForm from "./ProfileDataForm";
 import {ContactsType, ProfileType} from "../../../redux/types/types";
 
 type ProfileInfoType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void

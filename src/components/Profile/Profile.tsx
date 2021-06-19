@@ -5,7 +5,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/types/types";
 
 type ProfilePropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateStatus:(status: string)=> void
     savePhoto:(file: File)=> void

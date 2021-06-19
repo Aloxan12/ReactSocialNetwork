@@ -1,4 +1,4 @@
-import {APIResponseType, instance, ThunkLoginType} from "./api";
+import {APIResponseType, instance, ResultCodeForCapcthaEnum, ResultCodesEnum} from "./api";
 
 type MeResponseDataType = {
     id: number
@@ -15,15 +15,15 @@ export const authAPI = {
         return instance.get<APIResponseType<MeResponseDataType>>(`auth/me`).then(res => res.data);
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: null | string = null){
-        return instance.post<ThunkLoginType>(`auth/login`, {email, password, rememberMe, captcha})
+        return instance.post<APIResponseType<LoginResponseDataType, ResultCodesEnum | ResultCodeForCapcthaEnum>>(`auth/login`, {email, password, rememberMe, captcha})
             .then(response => {
-                return response
+                return response.data
             })
     },
     logout(){
         return instance.delete(`auth/login`)
             .then(response => {
-                return response
+                return response.data
             })
     }
 }
