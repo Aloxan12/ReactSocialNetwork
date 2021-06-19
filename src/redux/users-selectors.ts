@@ -25,3 +25,6 @@ export const getIsFetchingSelector = (state: RootReduxStateType)=>{
 export const getFollowingIsProgressSelector = (state: RootReduxStateType)=>{
     return state.users.followingIsProgress;
 }
+export const getUsersFilter = (state: RootReduxStateType) => {
+    return state.users.filter;
+}

@@ -158,4 +158,7 @@ export const saveProfile = (profile: ProfileType): AppThunk => async (dispatch, 
     }
 }
 
+
+
+
 export default profileReducer
