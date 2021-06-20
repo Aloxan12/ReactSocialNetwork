@@ -1,20 +1,12 @@
-import {AppThunk} from "./redux-store";
+import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {getAuthUsersData} from "./auth-reducer";
+import {FormAction} from "redux-form";
 
-
-export const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS"
-
-type ActionType = ReturnType<typeof initializedSuccess>
-
-export type InitialStateType = {
-    initialized: boolean
-}
-
-let initialState: InitialStateType = {
+let initialState = {
     initialized: false
 }
 
-export const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "INITIALIZED_SUCCESS":
             return {
@@ -26,16 +18,15 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
     }
 }
 
-type initializedSuccessActionType = {
-    type: typeof INITIALIZED_SUCCESS
+export const actions = {
+    initializedSuccess: ()=> ({type: "INITIALIZED_SUCCESS"} as const)
 }
-export const initializedSuccess = ():initializedSuccessActionType => ({type: INITIALIZED_SUCCESS} as const)
 
 export const initializedApp = () => (dispatch: any) => {
         let promise = dispatch(getAuthUsersData());
         Promise.all([promise])
             .then(()=>{
-                dispatch(initializedSuccess())
+                dispatch(actions.initializedSuccess())
             })
             .catch((e) => {
                 //go fo pizza
@@ -46,6 +37,8 @@ export const initializedApp = () => (dispatch: any) => {
             })
 }
 
-
-
 export default appReducer
+
+export type InitialStateType = typeof initialState;
+type ActionsType = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsType | FormAction>

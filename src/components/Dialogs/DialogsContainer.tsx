@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react'
+import React from 'react'
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {actions, InitialStateType} from "../../redux/dialogs-reducer";

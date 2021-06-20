@@ -1,5 +1,5 @@
-import {BaseThunkType, InferActionsTypes} from "./redux-store";
-import {FormAction} from "redux-form";
+import {InferActionsTypes} from "./redux-store";
+
 
 type messageType = {
     id: number
@@ -10,9 +10,7 @@ type dialogsType = {
     name: string
 }
 
-
-
-let initialState = {
+const initialState = {
     messages: [
         { id: 1, message: "Hi"},
         { id: 2, message: "I am here"},
@@ -60,4 +58,3 @@ export default dialogsReducer
 
 export type InitialStateType = typeof initialState;
 type ActionsType = InferActionsTypes<typeof actions>
-type ThunkType = BaseThunkType<ActionsType | FormAction>

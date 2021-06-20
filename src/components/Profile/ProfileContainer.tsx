@@ -9,7 +9,23 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {ProfileType} from "../../redux/types/types";
 
-class ProfileContainer extends React.Component<ProfilePropsType> {
+
+type MapDispatchToPropsType = {
+    getUserProfile:(userId: number | null)=> void
+    getStatus:(userId: number | null)=> void
+    updateStatus:(status: string)=> void
+    saveProfile: (profile: ProfileType) => Promise<any>
+    savePhoto:(file: File)=> void
+}
+type PathParamType = {
+    userId: string
+}
+
+type MapStateToPropsType =  ReturnType<typeof mapStateToProps>
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<PathParamType>
+
+class ProfileContainer extends React.Component<PropsType> {
     refreshProfile(){
         let userId: number | null = +this.props.match.params.userId
         if (!userId) {
@@ -18,18 +34,21 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
                 this.props.history.push("/login")
             }
         }
-        this.props.getUserProfile(userId)
-        this.props.getStatus(userId)
+        if (!userId) {
+            console.error("ID should exists in URI params or in state ('authorizedUserId')");
+        } else {
+            this.props.getUserProfile(userId)
+            this.props.getStatus(userId)
+        }
     }
     componentDidMount() {
         this.refreshProfile();
     }
-    componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any) {
+    componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
         if(this.props.match.params.userId != prevProps.match.params.userId){
             this.refreshProfile();
         }
     }
-
     render() {
         return (
             <div className={classes.content}>
@@ -46,21 +65,6 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 }
 
 
-type MapDispatchToPropsType = {
-    getUserProfile:(userId: number | null)=> void
-    getStatus:(userId: number | null)=> void
-    updateStatus:(status: string)=> void
-    saveProfile: (profile: ProfileType) => Promise<any>
-    savePhoto:(file: File)=> void
-}
-type PathParamType = {
-    userId: string
-}
-export type ProfilePropsType = RouteComponentProps<PathParamType> & ProfileUsersPropsType
-
-export type ProfileUsersPropsType = MapStateToPropsType & MapDispatchToPropsType
-
-type MapStateToPropsType =  ReturnType<typeof mapStateToProps>
 const mapStateToProps =(state: RootReduxStateType)=>{
     return {
         profile: state.profilePage.profile,

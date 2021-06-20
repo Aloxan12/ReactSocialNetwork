@@ -16,7 +16,12 @@ type ProfilePropsType = {
 const Profile = React.memo((props: ProfilePropsType) => {
   return (
     <div className={classes.content}>
-      <ProfileInfo profile={props.profile} savePhoto={props.savePhoto} saveProfile={props.saveProfile} status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner}/>
+      <ProfileInfo profile={props.profile}
+                   savePhoto={props.savePhoto}
+                   saveProfile={props.saveProfile}
+                   status={props.status}
+                   updateStatus={props.updateStatus}
+                   isOwner={props.isOwner}/>
       <MyPostsContainer />
     </div>
   )

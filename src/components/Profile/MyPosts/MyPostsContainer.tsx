@@ -1,34 +1,20 @@
-import React, {ChangeEvent} from 'react';
-import MyPosts from "./MyPosts";
+import React from 'react';
+import MyPosts, {DispatchPropsType, MapPropsType} from "./MyPosts";
 import {connect} from "react-redux";
-import {InitialStateType, PostType, actions} from "../../../redux/profile-reducer";
-import {Dispatch} from "redux";
+import {actions} from "../../../redux/profile-reducer";
+
 import {RootReduxStateType} from "../../../redux/redux-store";
 
-type MapStateToPropsType = {
-    profilePage: InitialStateType
-    posts: Array<PostType>
-}
-type MapDispatchToProps = {
-    onAddPost: (newText: string)=> void,
-}
-export type MyPostsPropsType = MapStateToPropsType & MapDispatchToProps
 
+const mapStateToProps = (state: RootReduxStateType) => {
+    return {
+        profilePage: state.profilePage,
+        posts: state.profilePage.posts,
+    }
+};
 
-    const mapStateToProps = (state: RootReduxStateType ): MapStateToPropsType=>{
-        return{
-            profilePage:state.profilePage,
-            posts: state.profilePage.posts,
-        }
-    };
-    const mapDispatchToProps = (dispatch: Dispatch ): MapDispatchToProps=> {
-        return {
-            onAddPost: (newText:string) => {
-                dispatch(actions.addPostAC(newText))
-            },
-        }
-    };
-
-    const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+const MyPostsContainer = connect<MapPropsType, DispatchPropsType, {}, RootReduxStateType>(mapStateToProps, {
+    addPost: actions.addPostAC
+})(MyPosts);
 
 export default MyPostsContainer;
