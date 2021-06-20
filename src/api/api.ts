@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {ProfileType, UserType} from "../redux/types/types";
+import {UserType} from "../redux/types/types";
 
 export const instance = axios.default.create({
     withCredentials: true,
@@ -26,29 +26,6 @@ export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
     resultCode: RC
 }
 
-export const UsersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => {
-                return response.data
-            })
-    },
-    unfollow(id: number | null) {
-        return instance.delete(`follow/${id}`)
-            .then(response => {
-                return response.data
-            })
-    },
-    follow(id: number | null) {
-        return instance.post(`follow/${id}`)
-            .then(response => {
-                return response.data
-            })
-    },
-    getProfile(userId: number | null) {
-        return ProfileAPI.getProfile(userId)
-    }
-}
 type GetCaptchaUrlResponseType = {
     url: string
 }
@@ -58,26 +35,4 @@ export const securityAPI = {
     }
 }
 
-export const ProfileAPI = {
-    getProfile(userId: number | null) {
-        return instance.get(`profile/` + userId)
-    },
-    getStatus(userId: number | null) {
-        return instance.get(`profile/status/` + userId)
-    },
-    updateStatus(status: string) {
-        return instance.put(`profile/status/`, {status})
-    },
-    savePhoto(file: File){
-        const formData = new FormData();
-        formData.append('image', file)
-        return instance.put(`profile/photo`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(res => res.data);
-    },
-    saveProfile(profile: ProfileType){
-        return instance.put(`profile`, profile).then(res => res.data);
-    }
-}
+

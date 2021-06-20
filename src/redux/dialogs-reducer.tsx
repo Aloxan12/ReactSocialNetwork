@@ -1,3 +1,5 @@
+import {BaseThunkType, InferActionsTypes} from "./redux-store";
+import {FormAction} from "redux-form";
 
 type messageType = {
     id: number
@@ -8,7 +10,7 @@ type dialogsType = {
     name: string
 }
 
-export type initialStateType = typeof initialState
+
 
 let initialState = {
     messages: [
@@ -24,10 +26,8 @@ let initialState = {
         { id: 5, name: "Bob"},
     ] as Array<dialogsType>
 }
-type ActionType = ReturnType<typeof addMessageAC> | ReturnType<typeof changeNewMessageTextCreate>
-| ReturnType<typeof removeMessageAC>
 
-const dialogsReducer = (state: initialStateType = initialState, action: ActionType): initialStateType=>{
+const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType=>{
     switch (action.type){
         case "ADD-MESSAGE":{
             const message = action.postMessage
@@ -50,22 +50,14 @@ const dialogsReducer = (state: initialStateType = initialState, action: ActionTy
             return state
     }
 }
-export const addMessageAC =(messageText:string)=>{
-    return{
-        type:'ADD-MESSAGE',
-        postMessage: messageText
-    }as const
+export const actions = {
+    addMessageAC: (messageText:string)=>({type:'ADD-MESSAGE', postMessage: messageText}as const),
+    removeMessageAC:(messageId:number)=>({type:'REMOVE-MESSAGE',messageId}as const),
+    changeNewMessageTextCreate: (newText:string)=>({type:'UPDATE-YOUR-MESSAGE-TEXT',newText: newText}as const)
 }
-export const removeMessageAC =(messageId:number)=>{
-    return{
-        type:'REMOVE-MESSAGE',
-        messageId
-    }as const
-}
-export const changeNewMessageTextCreate =(newText:string)=>{
-    return{
-        type:'UPDATE-YOUR-MESSAGE-TEXT',
-        newText: newText
-    }as const
-}
+
 export default dialogsReducer
+
+export type InitialStateType = typeof initialState;
+type ActionsType = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsType | FormAction>

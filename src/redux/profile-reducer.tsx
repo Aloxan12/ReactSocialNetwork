@@ -1,7 +1,9 @@
-import {ProfileAPI, UsersAPI} from "../api/api";
 import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {FormAction, stopSubmit} from "redux-form";
 import {PhotosType, ProfileType} from "./types/types";
+import {UsersAPI} from "../api/users-api";
+import {ProfileAPI} from "../api/profile-api";
+import {ResultCodesEnum} from "../api/api";
 
 
 export type PostType = {
@@ -82,17 +84,17 @@ export const actions = {
 }
 
 export const getUserProfile = (userId: number | null):ThunkType =>async (dispatch)=> {
-    const response = await UsersAPI.getProfile(userId)
-        dispatch(actions.setUserProfile(response.data))
+    const data = await UsersAPI.getProfile(userId)
+        dispatch(actions.setUserProfile(data))
 }
 export const getStatus = (userId: number | null):ThunkType =>async (dispatch)=> {
-     const response = await ProfileAPI.getStatus(userId)
-        dispatch(actions.setStatus(response.data))
+     const data = await ProfileAPI.getStatus(userId)
+        dispatch(actions.setStatus(data))
 }
 export const updateStatus = (status: string):ThunkType => async (dispatch)=> {
     try {
-        const response = await ProfileAPI.updateStatus(status)
-        if(response.data.resultCode === 0){
+        const data = await ProfileAPI.updateStatus(status)
+        if(data.resultCode === ResultCodesEnum.Success){
             dispatch(actions.setStatus(status))
         }
     } catch (error){
@@ -100,16 +102,16 @@ export const updateStatus = (status: string):ThunkType => async (dispatch)=> {
     }
 }
 export const savePhoto = (file: File): ThunkType => async (dispatch)=> {
-    const response = await ProfileAPI.savePhoto(file)
-            if(response.data.resultCode === 0){
-                dispatch(actions.savePhotoSuccess(response.data.photos))
+    let data = await ProfileAPI.savePhoto(file)
+            if(data.resultCode === ResultCodesEnum.Success){
+                dispatch(actions.savePhotoSuccess(data.data.photos))
             }
 }
 
 export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch, getState)=> {
     const userId = getState().auth.id
     const data = await ProfileAPI.saveProfile(profile)
-    if(data.resultCode === 0){
+    if(data.resultCode === ResultCodesEnum.Success){
         if(userId != null){
         dispatch(getUserProfile(userId))
         } else {

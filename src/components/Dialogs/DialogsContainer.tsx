@@ -1,14 +1,14 @@
 import React, {ChangeEvent} from 'react'
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {addMessageAC, initialStateType} from "../../redux/dialogs-reducer";
+import {actions, InitialStateType} from "../../redux/dialogs-reducer";
 import {compose, Dispatch} from 'redux';
 import {RootReduxStateType} from "../../redux/redux-store";
 import {mapStateToPropsForRedirectType, withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type MapStateToPropsType = {
-    dialogsPage: initialStateType
+    dialogsPage: InitialStateType
 }
 type MapDispatchToPropsType = {
     addMessage:(newMessage: string)=> void
@@ -23,7 +23,7 @@ const mapStateToProps = (state: RootReduxStateType): MapStateToPropsType=>{
 const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType=>{
     return{
         addMessage:(newMessage: string)=>{
-            dispatch(addMessageAC(newMessage))
+            dispatch(actions.addMessageAC(newMessage))
         }
     }
 }

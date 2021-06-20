@@ -4,7 +4,7 @@ import Profile from './Profile';
 import {connect} from "react-redux";
 import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profile-reducer";
 import {RootReduxStateType} from "../../redux/redux-store";
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {ProfileType} from "../../redux/types/types";
@@ -44,8 +44,6 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
         )
     }
 }
-
-
 
 
 type MapDispatchToPropsType = {
