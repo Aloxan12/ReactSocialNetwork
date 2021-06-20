@@ -1,7 +1,7 @@
-import profileReducer, {addPostAC, deletePostAC, InitialStatePostType} from "./profile-reducer";
+import profileReducer, {actions, InitialStateType} from "./profile-reducer";
 
 
-let state:InitialStatePostType = {
+let state:InitialStateType = {
     posts: [
         {id: 1,message: "Hello, It is my first massage", likeCounts: 15},
         {id: 2, message: "Hello, I am Lesha", likeCounts: 30},
@@ -32,13 +32,13 @@ let state:InitialStatePostType = {
 
 
 test('length of post should be increment',()=>{
-    let action = addPostAC('What?')
+    let action = actions.addPostAC('What?')
 
     let newState = profileReducer(state, action)
     expect(newState.posts.length).toBe(3)
 })
 test('delete post',()=>{
-    let action = deletePostAC(2)
+    let action = actions.deletePostAC(2)
     let newState = profileReducer(state, action)
     expect(newState.posts.length).toBe(1)
 })

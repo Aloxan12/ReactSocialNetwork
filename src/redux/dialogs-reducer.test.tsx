@@ -1,8 +1,8 @@
 
-import dialogsReducer, {addMessageAC, initialStateDialogsType, removeMessageAC} from "./dialogs-reducer";
+import dialogsReducer, {actions, InitialStateType} from "./dialogs-reducer";
 
 
-let state:initialStateDialogsType =  {
+let state:InitialStateType =  {
     messages: [
         { id: 1, message: "Hi"},
         { id: 2, message: "I am here"},
@@ -19,13 +19,13 @@ let state:initialStateDialogsType =  {
 
 
 test('length of post should be increment',()=>{
-    let action = addMessageAC('What?')
+    let action = actions.addMessageAC('What?')
 
     let newState = dialogsReducer(state, action)
     expect(newState.messages.length).toBe(4)
 })
 test('delete message',()=>{
-    let action = removeMessageAC(2)
+    let action = actions.removeMessageAC(2)
     let newState = dialogsReducer(state, action)
     expect(newState.messages.length).toBe(2)
 })

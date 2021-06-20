@@ -1,14 +1,12 @@
-import {AppThunk} from "./redux-store";
-import {getAuthUsersData} from "./auth-reducer";
-import appReducer, {initializedSuccess, InitialStateAuthType} from "./app-reducer";
+import appReducer, {actions, InitialStateType} from "./app-reducer";
 
-let state:InitialStateAuthType =  {
+let state:InitialStateType =  {
     initialized: false
 }
 
 
 test('initialized app',()=>{
-    let action = initializedSuccess()
+    let action = actions.initializedSuccess()
 
     let newState = appReducer(state, action)
     expect(newState.initialized).toBe(true)
