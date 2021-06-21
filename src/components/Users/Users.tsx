@@ -1,94 +1,91 @@
-import React from "react";
-import { Paginator } from "../Common/Paginator/Paginator";
-import {UsersPropsType} from "./UsersContainer";
+import React, {useEffect} from "react";
+import {Paginator} from "../Common/Paginator/Paginator";
 import {User} from "./User";
-import {Form, Formik, Field} from "formik";
-import {FilterType, getUsers} from "../../redux/users-reducer";
+import {FilterType, follow, getUsers, unfollow} from "../../redux/users-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {getPageSizeSelector, getUsersFilter} from "../../redux/users-selectors";
+import {
+    getCurrentPageSelector, getFollowingIsProgressSelector,
+    getPageSizeSelector,
+    getTotalUsersCountsSelector,
+    getUsersFilter, getUserSuper
+} from "../../redux/users-selectors";
+import {UsersSearchForm} from "./UsersSearchForm";
+import { useHistory } from "react-router-dom";
+import * as queryString from "querystring";
 
+type QueryParamsType = { term?: string; page?: string; friend?: string }
 
+export const Users = () => {
 
-export const Users = (props: UsersPropsType) => {
-    const dispatch = useDispatch()
+    const users = useSelector(getUserSuper)
+    const totalUsersCount = useSelector(getTotalUsersCountsSelector)
+    const currentPage = useSelector(getCurrentPageSelector)
     const pageSize = useSelector(getPageSizeSelector)
-    let pageCount = Math.ceil(props.totalUsersCounts / props.pageSize)
+    const filter = useSelector(getUsersFilter)
+    const followingInProgress = useSelector(getFollowingIsProgressSelector)
 
-    let pages = []
-    for (let i = 1; i <= pageCount; i++) {
-        pages.push(i)
+    const dispatch = useDispatch()
+    const history = useHistory()
+    useEffect(() => {
+        const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType
+        let actualPage = currentPage
+        let actualFilter = filter
+        if(!!parsed.page) actualPage = Number(parsed.page)
+        if(!!parsed.term) actualFilter = {...actualFilter, term: parsed.term as string}
+        switch (parsed.friend){
+            case "null":
+                actualFilter = {...actualFilter, friend: null}
+                break
+            case "true":
+                actualFilter = {...actualFilter, friend: true}
+                break
+            case "false":
+                actualFilter = {...actualFilter, friend: false}
+                break
+        }
+        dispatch(getUsers(actualPage, pageSize, actualFilter))
+    }, [])
+    useEffect(() => {
+        const query: QueryParamsType = {}
+        if(!!filter.term) query.term = filter.term
+        if(filter.friend !== null) query.friend = String(filter.friend)
+        if(currentPage !== 1) query.page = String(currentPage)
+
+        history.push({
+            pathname: '/users',
+            search: queryString.stringify(query)
+        })
+    }, [filter, currentPage])
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(getUsers(pageNumber, pageSize, filter))
     }
     const onFilterChanged = (filter: FilterType) => {
         dispatch(getUsers(1, pageSize, filter))
     }
+    const follow = (userId: number) => {
+        dispatch(follow(userId))
+    }
+    const unfollow = (userId: number) => {
+        dispatch(unfollow(userId))
+    }
     return (
         <div>
+            <UsersSearchForm onFilterChanged={onFilterChanged} />
             {
-                props.users.map(u => <User followingIsProgress={props.followingIsProgress}
-                                           unfollow={props.unfollow}
-                                           follow={props.follow}
+                users.map(u => <User followingIsProgress={followingInProgress}
+                                           unfollow={unfollow}
+                                           follow={follow}
                                            user={u}
                                            key={u.id}
                 />)
             }
-            <UsersSearchForm onFilterChanged={onFilterChanged} />
-            <Paginator currentPage={props.currentPage}
-                       onPageChanged={props.onPageChanged}
-                       pageSize={props.pageSize}
-                       totalItemCounts={props.totalUsersCounts}  />
+
+            <Paginator currentPage={currentPage}
+                       onPageChanged={onPageChanged}
+                       pageSize={pageSize}
+                       totalItemCounts={totalUsersCount}  />
         </div>
     )
 }
 
-const usersSearchFormValidate = (values: any) => {
-    const errors = {}
-    return errors
-}
-
-type FriendFormType = 'true' | 'false' | 'null'
-
-type FormType = {
-    term: string
-    friend: 'true' | 'false' | 'null'
-}
-
-type PropsType = {
-    onFilterChanged: (filter: FilterType) => void
-}
-
-export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
-    const filter = useSelector(getUsersFilter)
-    const submit = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
-        const filter: FilterType = {
-            term: values.term,
-            friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
-        }
-
-        props.onFilterChanged(filter)
-        setSubmitting(false)
-    }
-
-    return <div>
-        <Formik
-            enableReinitialize
-            initialValues={{term: filter.term, friend: String(filter.friend) as FriendFormType}}
-            validate={usersSearchFormValidate}
-            onSubmit={submit}
-        >
-            {({isSubmitting}) => (
-                <Form>
-                    <Field type="text" name="term"/>
-
-                    <Field name="friend" as="select">
-                        <option value="null">All</option>
-                        <option value="true">Only followed</option>
-                        <option value="false">Only unfollowed</option>
-                    </Field>
-                    <button type="submit" disabled={isSubmitting}>
-                        Find
-                    </button>
-                </Form>
-            )}
-        </Formik>
-    </div>
-})

@@ -6,7 +6,7 @@ import News from './components/News/News';
 import Setting from './components/Setting/Setting';
 import {BrowserRouter, HashRouter, Redirect, Route, withRouter} from "react-router-dom";
 import store, {RootReduxStateType} from "./redux/redux-store";
-import UsersContainer from "./components/Users/UsersContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 import HeaderContainer from './components/Header/HeaderContainer';
 import {Login} from './components/Login/Login';
 import {connect, Provider} from "react-redux";
@@ -48,7 +48,7 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
           <Route path='/' render={() => <Redirect to={'/profile'}/>}/>
           <Route path='/profile/:userId?' render={() => <SuspendedProfile/>}/>
           <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
-          <Route path='/users' render={() => <UsersContainer/>}/>
+          <Route path='/users' render={() => <UsersContainer pageTitle={'Пользователи'} />}/>
           <Route path='/login' render={() => <Login/>}/>
           <Route path='/music' render={() => <Music/>}/>
           <Route path='/news' render={() => <News/>}/>

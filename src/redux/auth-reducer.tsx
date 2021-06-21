@@ -1,7 +1,8 @@
-import {ResultCodeForCapcthaEnum, ResultCodesEnum, securityAPI} from "../api/api";
+import {ResultCodeForCapcthaEnum, ResultCodesEnum} from "../api/api";
 import {FormAction, stopSubmit} from "redux-form";
 import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {authAPI} from "../api/auth-api";
+import { securityAPI } from "../api/security-api";
 
 
 let initialState = {

@@ -1,6 +1,5 @@
-import {BaseThunkType, InferActionsTypes} from "./redux-store";
+import {InferActionsTypes} from "./redux-store";
 import {getAuthUsersData} from "./auth-reducer";
-import {FormAction} from "redux-form";
 
 let initialState = {
     initialized: false
@@ -28,10 +27,16 @@ export const initializedApp = () => (dispatch: any) => {
             .then(()=>{
                 dispatch(actions.initializedSuccess())
             })
+            .catch((e) => {
+                //go fo pizza
+                console.log(e)
+            })
+            .finally(() => {
+                //dispatch(initializedSuccess(error))
+            })
 }
 
 export default appReducer
 
 export type InitialStateType = typeof initialState;
 type ActionsType = InferActionsTypes<typeof actions>
-type ThunkType = BaseThunkType<ActionsType | FormAction>
