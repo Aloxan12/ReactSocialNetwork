@@ -28,13 +28,6 @@ export const initializedApp = () => (dispatch: any) => {
             .then(()=>{
                 dispatch(actions.initializedSuccess())
             })
-            .catch((e) => {
-                //go fo pizza
-                console.log(e)
-            })
-            .finally(() => {
-                //dispatch(initializedSuccess(error))
-            })
 }
 
 export default appReducer

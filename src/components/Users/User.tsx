@@ -4,6 +4,7 @@ import userPhoto from "../../assets/images/user.png";
 import styles from "./users.module.css";
 import {UserType} from "../../redux/types/types";
 
+
 type UserPropsType = {
     user: UserType
     follow: (userID: number) => void
@@ -11,7 +12,7 @@ type UserPropsType = {
     followingIsProgress: Array<number>
 }
 
-export const User = React.memo((props: UserPropsType) => {
+export const User =(props: UserPropsType) => {
     let u = props.user;
     return (
         <div>
@@ -36,7 +37,7 @@ export const User = React.memo((props: UserPropsType) => {
                                           }}>Follow</button>}
                         </div>
                     </span>
-                    <span>
+                <span>
                         <span>
                             <div>{u.name}</div>
                             <div>{u.status}</div>
@@ -50,4 +51,6 @@ export const User = React.memo((props: UserPropsType) => {
 
         </div>
     )
-})
+}
+
+
