@@ -26,6 +26,7 @@ export const Users = () => {
 
     const dispatch = useDispatch()
     const history = useHistory()
+
     useEffect(() => {
         const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType
         let actualPage = currentPage
@@ -63,10 +64,10 @@ export const Users = () => {
     const onFilterChanged = (filter: FilterType) => {
         dispatch(getUsers(1, pageSize, filter))
     }
-    const follow = (userId: number) => {
+    const followU = (userId: number) => {
         dispatch(follow(userId))
     }
-    const unfollow = (userId: number) => {
+    const unfollowU = (userId: number) => {
         dispatch(unfollow(userId))
     }
     return (
@@ -74,8 +75,8 @@ export const Users = () => {
             <UsersSearchForm onFilterChanged={onFilterChanged} />
             {
                 users.map(u => <User followingIsProgress={followingInProgress}
-                                           unfollow={unfollow}
-                                           follow={follow}
+                                           unfollow={unfollowU}
+                                           follow={followU}
                                            user={u}
                                            key={u.id}
                 />)
