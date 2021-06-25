@@ -23,17 +23,18 @@ const Header = React.memo(() => {
         <Header className="header">
             <div className="logo"/>
             <Row>
-                <Col span={20}>
+                <Col span={18}>
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
                         <Menu.Item key="1"><Link to="/users">Users</Link></Menu.Item>
                     </Menu>
                 </Col>
                 {isAuth
-                    ? <> <Col span={2}>
-                        <Avatar style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>
-                    </Col>
+                    ? <>
+                        <Col span={1}>
+                            <Avatar style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>
+                        </Col>
                         <Col span={4}>
-                            {login} <Button onClick={logoutCallback}>logout</Button>
+                            <Button onClick={logoutCallback}>logout</Button>
                         </Col>
                     </>
                     : <Col span={6}>
