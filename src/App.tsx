@@ -24,9 +24,11 @@ const {Content, Footer, Sider } = Layout;
 
 const DialogsContainer = React.lazy(()=>import ("./components/Dialogs/DialogsContainer"));
 const ProfileContainer = React.lazy(()=>import ("./components/Profile/ProfileContainer"));
+const ChatPage = React.lazy(()=>import ("./pages/ChatPage/ChatPage"));
 
 const SuspendedDialogs = withSuspense(DialogsContainer)
 const SuspendedProfile = withSuspense(ProfileContainer)
+const SuspendedChat = withSuspense(ChatPage)
 
 class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
   catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
@@ -65,21 +67,13 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
               >
                 <SubMenu key="sub1" icon={<UserOutlined />} title="My Profile">
                   <Menu.Item key="1"><Link to="/profile">Profile</Link></Menu.Item>
-                  <Menu.Item key="2"><Link to="/dialogs">Massage</Link></Menu.Item>
-                  <Menu.Item key="3">option3</Menu.Item>
-                  <Menu.Item key="4">option4</Menu.Item>
+                  <Menu.Item key="2"><Link to="/dialogs">Messages</Link></Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" icon={<LaptopOutlined />} title="Developers">
                   <Menu.Item key="5"><Link to="/users" >Users</Link></Menu.Item>
-                  <Menu.Item key="6">option6</Menu.Item>
-                  <Menu.Item key="7">option7</Menu.Item>
-                  <Menu.Item key="8">option8</Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-                  <Menu.Item key="9">option9</Menu.Item>
-                  <Menu.Item key="10">option10</Menu.Item>
-                  <Menu.Item key="11">option11</Menu.Item>
-                  <Menu.Item key="12">option12</Menu.Item>
+                <SubMenu key="sub3" icon={<NotificationOutlined />} title="Chat">
+                  <Menu.Item key="9"><Link to="/chat" >Chat</Link></Menu.Item>
                 </SubMenu>
               </Menu>
             </Sider>
@@ -87,6 +81,7 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
               <Route path='/' render={() => <Redirect to={'/profile'}/>}/>
               <Route path='/profile/:userId?' render={() => <SuspendedProfile/>}/>
               <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
+              <Route path='/chat' render={() => <SuspendedChat/>}/>
               <Route path='/users' render={() => <UsersContainer pageTitle={'Пользователи'} />}/>
               <Route path='/login' render={() => <Login/>}/>
               <Route path='/music' render={() => <Music/>}/>
