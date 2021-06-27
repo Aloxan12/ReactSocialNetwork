@@ -1,12 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
+import {ChatMessageType} from "../../api/chat-api";
 
 
-type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
 const ChatPage: React.FC = () => {
     return (
         <div>
