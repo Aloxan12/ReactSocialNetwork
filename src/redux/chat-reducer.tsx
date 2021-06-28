@@ -2,7 +2,7 @@ import {ResultCodeForCapcthaEnum, ResultCodesEnum} from "../api/api";
 import {FormAction, stopSubmit} from "redux-form";
 import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {authAPI} from "../api/auth-api";
-import { securityAPI } from "../api/security-api";
+import {securityAPI} from "../api/security-api";
 import {chatAPI, ChatMessageType} from "../api/chat-api";
 import {Dispatch} from "redux";
 
@@ -24,24 +24,28 @@ export const chatReducer = (state = initialState, action: ActionsType): InitialS
 }
 
 export const actions = {
-    messagedReceived:(messages: ChatMessageType[] )=>({type:'MESSAGES_RECEIVED', payload: {messages}}as const),
+    messagedReceived: (messages: ChatMessageType[]) => ({type: 'MESSAGES_RECEIVED', payload: {messages}} as const),
 }
-let _newMessageHandler: ((messages: ChatMessageType[])=> void) | null= null
-const newMessageHandler = (dispatch: Dispatch)=>{
-    if(_newMessageHandler !== null) {
-        return _newMessageHandler
-    }
-    _newMessageHandler = (messages)=>{
-        dispatch(actions.messagedReceived(messages))
+let _newMessageHandler: ((messages: ChatMessageType[]) => void) | null = null
+const newMessageHandler = (dispatch: Dispatch) => {
+    if (_newMessageHandler === null) {
+        _newMessageHandler = (messages) => {
+            dispatch(actions.messagedReceived(messages))
+        }
     }
     return _newMessageHandler
 }
 
-export const startMessagesListening = (): ThunkType =>async (dispatch) => {
-            const unsubscribe = chatAPI.subscribe(newMessageHandler(dispatch))
+export const startMessagesListening = (): ThunkType => async (dispatch) => {
+    chatAPI.start()
+    chatAPI.subscribe(newMessageHandler(dispatch))
 }
-export const stopMessagesListening = (): ThunkType =>async (dispatch) => {
-            chatAPI.unsubscribe(newMessageHandler(dispatch))
+export const stopMessagesListening = (): ThunkType => async (dispatch) => {
+    chatAPI.unsubscribe(newMessageHandler(dispatch))
+    chatAPI.stop()
+}
+export const sendMessage = (message: string): ThunkType => async (dispatch) => {
+    chatAPI.sendMessage(message)
 }
 
 

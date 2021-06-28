@@ -1,7 +1,7 @@
 
 let subscribes = [] as Array<SubscribeType>
 
-let ws: WebSocket
+let ws: WebSocket | null = null
 
 const closeHandler = () => {
     createChannel()
@@ -16,9 +16,19 @@ function createChannel() {
     ws?.close()
     ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
     ws?.addEventListener('close', closeHandler)
+    ws?.addEventListener('message', messageHandler)
 }
 
 export const chatAPI = {
+    start(){
+        createChannel()
+    },
+    stop(){
+        subscribes = []
+        ws?.removeEventListener('close', closeHandler)
+        ws?.removeEventListener('message', messageHandler)
+        ws?.close()
+    },
     subscribe(callback: SubscribeType){
         subscribes.push(callback)
         return ()=>{
@@ -27,6 +37,9 @@ export const chatAPI = {
     },
     unsubscribe(callback: SubscribeType){
         subscribes.filter(s => s !== callback)
+    },
+    sendMessage(message: string){
+        ws?.send(message)
     }
 }
 
