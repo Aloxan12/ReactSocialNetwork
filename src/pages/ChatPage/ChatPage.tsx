@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {ChatMessageType} from "../../api/chat-api";
+import {ChatMessageType, StatusType} from "../../api/chat-api";
 import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
 import {RootReduxStateType} from "../../redux/redux-store";
@@ -17,22 +17,26 @@ export default ChatPage
 
 export const Chat: React.FC = () => {
     const dispatch = useDispatch()
+    const status = useSelector<RootReduxStateType, StatusType>(state => state.chat.status)
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(startMessagesListening())
-        return ()=>{
+        return () => {
             dispatch(stopMessagesListening())
         }
     },)
 
     return (
         <div>
-            <Messages />
-            <AddMessageForm />
+            {status === 'error' ? <div>Some error.Please refresh page</div> :
+                <>
+                    <Messages/>
+                    <AddMessageForm/>
+                </>}
         </div>
     )
 }
-export const Messages: React.FC<{ }> = ({}) => {
+export const Messages: React.FC<{}> = ({}) => {
     const messages = useSelector<RootReduxStateType, ChatMessageType[]>(state => state.chat.messages)
     return (
         <div style={{height: '400px', overflow: "auto"}}>ф
@@ -52,8 +56,8 @@ export const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
 }
 export const AddMessageForm: React.FC<{}> = ({}) => {
     const [message, setMessage] = useState('')
-    const [readyStatus, setReadyStatus] = useState<"pending" | "ready">("pending")
     const dispatch = useDispatch()
+    const status = useSelector<RootReduxStateType, StatusType>(state => state.chat.status)
 
     const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.currentTarget.value)
@@ -72,7 +76,7 @@ export const AddMessageForm: React.FC<{}> = ({}) => {
                 <textarea value={message} onChange={onChange}></textarea>
             </div>
             <div>
-                <button disabled={false} onClick={sendMessageHandler}>Send</button>
+                <button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</button>
             </div>
         </div>
     )
