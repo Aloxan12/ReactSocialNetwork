@@ -54,8 +54,6 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
           <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
             <Sider className="site-layout-background" width={200}>
@@ -69,7 +67,7 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
                   <Menu.Item key="1"><Link to="/profile">Profile</Link></Menu.Item>
                   <Menu.Item key="2"><Link to="/dialogs">Messages</Link></Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub2" icon={<LaptopOutlined />} title="Developers">
+                <SubMenu key="sub2" icon={<LaptopOutlined />} title="Users">
                   <Menu.Item key="5"><Link to="/users" >Users</Link></Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub3" icon={<NotificationOutlined />} title="Chat">

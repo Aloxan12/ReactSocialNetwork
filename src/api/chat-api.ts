@@ -8,7 +8,7 @@ let ws: WebSocket | null = null
 type EventsNamesType = 'message-received' | 'status-changed'
 
 const closeHandler = () => {
-    createChannel()
+    notifySubscribersAboutStatus('pending')
     setTimeout(createChannel, 3000)
 }
 const messageHandler = (e:MessageEvent) => {
@@ -36,10 +36,10 @@ function createChannel() {
     ws?.close()
     ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
     notifySubscribersAboutStatus('pending')
-    ws?.addEventListener('close', closeHandler)
-    ws?.addEventListener('message', messageHandler)
-    ws?.addEventListener('open', openHandler)
-    ws?.addEventListener('error', errorHandler)
+    ws.addEventListener('close', closeHandler)
+    ws.addEventListener('message', messageHandler)
+    ws.addEventListener('open', openHandler)
+    ws.addEventListener('error', errorHandler)
 }
 
 export const chatAPI = {
@@ -70,10 +70,10 @@ export const chatAPI = {
 }
 
 
-type MessageReceivedSubscribeType = (messages: ChatMessageType[])=> void
+type MessageReceivedSubscribeType = (messages: ChatMessageAPIType[])=> void
 type StatusChangedSubscribeType = (status: StatusType)=> void
 export type StatusType = 'pending' | 'ready' | 'error'
-export type ChatMessageType = {
+export type ChatMessageAPIType = {
     message: string
     photo: string
     userId: number

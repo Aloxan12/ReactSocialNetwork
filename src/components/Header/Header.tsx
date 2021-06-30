@@ -25,7 +25,8 @@ const Header = React.memo(() => {
             <Row>
                 <Col span={18}>
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                        <Menu.Item key="1"><Link to="/users">Users</Link></Menu.Item>
+                        <Menu.Item key="5"><Link to="/users">Users</Link></Menu.Item>
+                        <Menu.Item key="9"><Link to="/Chat">Chat</Link></Menu.Item>
                     </Menu>
                 </Col>
                 {isAuth
