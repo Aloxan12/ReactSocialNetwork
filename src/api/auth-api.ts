@@ -1,11 +1,11 @@
 import {APIResponseType, instance, ResultCodeForCapcthaEnum, ResultCodesEnum} from "./api";
 
-type MeResponseDataType = {
+export type MeResponseDataType = {
     id: number
     email: string
     login: string
 }
-type LoginResponseDataType = {
+export type LoginResponseDataType = {
     userId: number
 }
 
@@ -22,9 +22,7 @@ export const authAPI = {
     },
     logout(){
         return instance.delete(`auth/login`)
-            .then(response => {
-                return response.data
-            })
+            .then(res => res.data)
     }
 }
 

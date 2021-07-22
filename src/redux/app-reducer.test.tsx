@@ -4,7 +4,6 @@ let state:InitialStateType =  {
     initialized: false
 }
 
-
 test('initialized app',()=>{
     let action = actions.initializedSuccess()
 

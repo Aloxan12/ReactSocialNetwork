@@ -16,7 +16,6 @@ import * as queryString from "querystring";
 type QueryParamsType = { term?: string; page?: string; friend?: string }
 
 export const Users = () => {
-
     const users = useSelector(getUserSuper)
     const totalUsersCount = useSelector(getTotalUsersCountsSelector)
     const currentPage = useSelector(getCurrentPageSelector)

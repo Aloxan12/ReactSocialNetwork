@@ -76,4 +76,4 @@ export default authReducer
 
 export type InitialStateType = typeof initialState;
 type ActionsType = InferActionsTypes<typeof actions>
-type ThunkType = BaseThunkType<ActionsType | FormAction>
+export type ThunkType = BaseThunkType<ActionsType | FormAction>

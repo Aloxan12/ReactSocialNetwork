@@ -8,6 +8,11 @@ import thunkMiddleware, {ThunkAction} from "redux-thunk"
 import { reducer as formReducer} from 'redux-form'
 import appReducer from "./app-reducer";
 import chatReducer from "./chat-reducer";
+import createSagaMiddleware from 'redux-saga'
+import { all } from 'redux-saga/effects';
+import {appWatcherSaga} from "./app-sagas";
+import {authWatcherSaga} from "./auth-sagas";
+
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -19,11 +24,20 @@ let rootReducer = combineReducers({
     app: appReducer,
     chat: chatReducer
 })
+const sagaMiddleware = createSagaMiddleware()
 
 export type RootReduxStateType = ReturnType<typeof rootReducer>
 
-let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+let store = createStore(rootReducer, applyMiddleware(thunkMiddleware, sagaMiddleware));
 export type StoreReduxType = typeof store
+
+sagaMiddleware.run(rootWatcher)
+
+function* rootWatcher(){
+    yield all([appWatcherSaga(), authWatcherSaga()]);
+}
+
 
 export type AppThunk <ReturnType = void> = ThunkAction<ReturnType, RootReduxStateType, unknown, AnyAction>
 
