@@ -35,19 +35,23 @@ const ProfileInfo = React.memo((props: ProfileInfoType) => {
     }
     return (
         <div className={classes.content}>
-            <img src="http://www.rosphoto.com/images/u/articles/1511/4-dalius-baranauskas.jpg" alt="photo"
-                 className={classes.mainimg}/>
-            <img src={props.profile.photos.large || userPhoto} className={classes.mainPhoto}/>
-            {props.isOwner && <input type='file' onChange={onMainPhotoSelected}/>}
-
-            {editMode ?
-                <ProfileDataForm  initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}/> :
-                <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={() => {
-                    setEditMode(true)
-                }}/>}
-
-            <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
-            {props.profile.userId} - my id!!!
+            <div className={classes.photoContainer}>
+                <img src={props.profile.photos.large || userPhoto} className={classes.mainPhoto}/>
+                {props.isOwner &&
+                <label className={classes.uploadPhoto}>
+                    <span>Upload new photo</span>
+                    <input type='file' onChange={onMainPhotoSelected}/>
+                </label>
+                }
+            </div>
+            <div className={classes.profileContainer}>
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+                {editMode ?
+                    <ProfileDataForm  initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}/> :
+                    <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={() => {
+                        setEditMode(true)
+                    }}/>}
+            </div>
 
         </div>
     )
@@ -60,8 +64,8 @@ type ProfileDataPropsType =
     }
 const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode}) => {
     return (
-        <div>
-            {isOwner && <div><button onClick={goToEditMode}>edit</button></div>}
+        <div className={classes.formProfile}>
+            {isOwner && <div><button onClick={goToEditMode} className={classes.Edit}>Edit</button></div>}
             <div>
                 <b>Full name</b>:{profile.fullName}
             </div>

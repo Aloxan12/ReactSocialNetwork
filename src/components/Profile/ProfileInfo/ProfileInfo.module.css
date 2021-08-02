@@ -1,14 +1,83 @@
 .content{
   grid-area: c;
   background-color: #272B34;
-}
-.mainimg{
-  max-width: 80%;
-  margin: 10px 100px;
+  display: flex;
+  flex-direction: row;
 }
 .mainPhoto{
-  max-width: 200px;
+  margin: 40px 50px 10px;
+  border: 2px solid grey;
+  border-radius: 15%;
+  max-width: 250px;
 }
 .contact{
   padding-left: 10px;
+}
+.formProfile{
+  color: grey;
+  letter-spacing: 1.2px;
+  margin: 20px 30px;
+}
+.formProfile input{
+  width: 100%;
+  padding: 7px;
+  border-radius: 5px;
+}
+.formProfile input:hover{
+  color: black;
+}
+.formProfile textarea{
+  width: 100%;
+}
+
+/*ProfileInfo*/
+.Edit{
+  width: 100px;
+  letter-spacing: 1.4px;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: #272B34;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+.Edit:hover{
+  color: white;
+}
+.photoContainer{
+  display: flex;
+  flex-direction: column;
+}
+.uploadPhoto{
+  width: 250px;
+  margin: 10px 50px;
+  border: 1px solid #ccc;
+  letter-spacing: 1.4px;
+  padding: 10px;
+  color: #ccc;
+  cursor: pointer;
+  text-align: center;
+}
+.uploadPhoto:hover{
+  color: white;
+}
+.uploadPhoto input{
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+}
+.profileContainer{
+  margin-top: 50px;
+}
+.status{
+  margin-left: 50px;
+  color: #ccc;
+}
+.status span{
+  color: white;
+  font-size: 20px;
+}
+.statusInput{
+  margin-left: 50px;
+  padding: 5px;
+  border-radius: 5px;
 }

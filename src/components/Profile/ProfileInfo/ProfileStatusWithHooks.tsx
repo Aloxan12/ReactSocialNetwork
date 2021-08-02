@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import classes from "./ProfileInfo.module.css"
 
 type ProfileStatusType = {
     status: string
@@ -24,12 +25,12 @@ const ProfileStatusWithHooks = React.memo( (props: ProfileStatusType) => {
     return (
         <div>
             {!editMode &&
-                <div>
-                    <b>Status:</b><span onDoubleClick={activeEditMode}>{props.status || '----'}</span>
+                <div className={classes.status}>
+                    <b>Status: </b><span onDoubleClick={activeEditMode}>{props.status || '----'}</span>
                 </div>}
             {editMode &&
             <div>
-                <input value={status} onChange={onChangeStatus} onBlur={deactivateEditMode} autoFocus/>
+                <input value={status} onChange={onChangeStatus} onBlur={deactivateEditMode} autoFocus className={classes.statusInput}/>
             </div>}
 
         </div>

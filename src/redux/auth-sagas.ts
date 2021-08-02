@@ -60,4 +60,3 @@ export function* getCaptchaUrlSagaWorker (){
     yield put(actions.getCaptchaUrlSuccess(captchaUrl))
 }
 
-
