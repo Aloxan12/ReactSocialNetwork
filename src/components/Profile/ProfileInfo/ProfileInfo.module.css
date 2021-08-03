@@ -1,6 +1,7 @@
 .content{
   grid-area: c;
-  background-color: #272B34;
+  background-color: #001529;
+  border-radius: 10px;
   display: flex;
   flex-direction: row;
 }
@@ -39,6 +40,7 @@
   background-color: #272B34;
   color: #ccc;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .Edit:hover{
   color: white;

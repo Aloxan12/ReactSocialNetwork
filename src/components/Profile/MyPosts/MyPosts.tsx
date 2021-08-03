@@ -2,7 +2,7 @@ import React from 'react';
 import classes from "./MyPosts.module.css"
 import Post from './Post/Post';
 import {PostType} from "../../../redux/profile-reducer";
-import {AddPostFormRedux} from './AddPostForm/AddPostForm';
+import {AddPostFormRedux, AddPostFormValuesType} from './AddPostForm/AddPostForm';
 
 export type MapPropsType = {
     posts: Array<PostType>
@@ -21,8 +21,8 @@ const MyPosts: React.FC<MapPropsType & DispatchPropsType> = props => {
                       likeCounts={p.likeCounts}
                       id={new Date().getTime()}/>)
 
-    let addNewMessage = (value: any) => {
-        props.addPost(value.newPostBody)
+    let addNewMessage = (value: AddPostFormValuesType) => {
+        props.addPost(value.newPostText)
     }
     return (
         <div className={classes.postsBlock}>

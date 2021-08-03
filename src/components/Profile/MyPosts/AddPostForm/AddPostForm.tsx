@@ -1,7 +1,7 @@
-import {maxLengthCreator, required} from "../../../../utils/validators/validators";
+import {required} from "../../../../utils/validators/validators";
 import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {createField, GetStringKeys, Input, Textarea} from "../../../Common/FormsControls/FormsControls";
+import {InjectedFormProps, reduxForm} from "redux-form";
+import {createField, GetStringKeys, Textarea} from "../../../Common/FormsControls/FormsControls";
 
 type PropsType = {
 
@@ -15,7 +15,7 @@ export const AddPostForm: React.FC<InjectedFormProps<AddPostFormValuesType, Prop
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                {createField<AddPostFormValuesTypeKeys>("Your post", 'newPostText', [required], Input) }
+                {createField<AddPostFormValuesTypeKeys>("Your post", 'newPostText', [required], Textarea) }
             </div>
             <div>
                 <button>Send</button>
