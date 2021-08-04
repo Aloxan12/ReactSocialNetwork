@@ -4,18 +4,20 @@ import {PhotosType, ProfileType} from "./types/types";
 import {UsersAPI} from "../api/users-api";
 import {ProfileAPI} from "../api/profile-api";
 import {ResultCodesEnum} from "../api/api";
+import {v1} from "uuid";
 
 
 export type PostType = {
-    id: number
+    id: string
     message: string
     likeCounts: number
+    removeMessage?:()=>void
 }
 
 export let initialState = {
     posts: [
-        {id: 1,message: "Hello, It is my first massage", likeCounts: 15},
-        {id: 2, message: "Hello, I am Lesha", likeCounts: 30},
+        {id: v1(),message: "Hello, It is my first massage", likeCounts: 15},
+        {id: v1(), message: "Hello, I am Lesha", likeCounts: 30},
     ] as Array<PostType>,
     profile:{
         "aboutMe": "я круто чувак 1001%",
@@ -44,7 +46,7 @@ export let initialState = {
 export const profileReducer = (state = initialState, action: ActionsType):InitialStateType => {
     switch (action.type) {
         case "ADD-POST": {
-            const newPost = {id: 5, message:action.postMessage, likeCounts: 0}
+            const newPost = {id: v1(), message:action.postMessage, likeCounts: 0}
             return {
                 ...state,
                 posts: [...state.posts, newPost]
@@ -77,7 +79,7 @@ export const profileReducer = (state = initialState, action: ActionsType):Initia
 
 export const actions = {
     addPostAC: (postText: string) => ({type: 'ADD-POST',postMessage: postText} as const),
-    deletePostAC: (postId: number) => ({type: 'REMOVE-POST',postId} as const),
+    deletePostAC: (postId: string) => ({type: 'REMOVE-POST',postId} as const),
     setUserProfile: (profile: ProfileType) => ({type: 'SET_USER_PROFILE',profile} as const),
     setStatus: (status: string) => ({type: 'SET_STATUS',status} as const),
     savePhotoSuccess: (photo: PhotosType) =>({type: 'SAVE_PHOTO_SUCCESS',photo} as const)

@@ -26,11 +26,21 @@ let rootReducer = combineReducers({
 })
 const sagaMiddleware = createSagaMiddleware()
 
-export type RootReduxStateType = ReturnType<typeof rootReducer>
+let preloadedState;
+const persistedTodosString = localStorage.getItem('app-state')
+if(persistedTodosString){
+    preloadedState = JSON.parse(persistedTodosString)
+}
 
 
-let store = createStore(rootReducer, applyMiddleware(thunkMiddleware, sagaMiddleware));
+let store = createStore(rootReducer,preloadedState, applyMiddleware(thunkMiddleware, sagaMiddleware));
 export type StoreReduxType = typeof store
+
+store.subscribe(()=>{
+    localStorage.setItem('app-state', JSON.stringify(store.getState()))
+    localStorage.setItem('posts', JSON.stringify(store.getState().profilePage.posts))
+})
+
 
 sagaMiddleware.run(rootWatcher)
 
@@ -38,6 +48,7 @@ function* rootWatcher(){
     yield all([appWatcherSaga(), authWatcherSaga()]);
 }
 
+export type RootReduxStateType = ReturnType<typeof rootReducer>
 
 export type AppThunk <ReturnType = void> = ThunkAction<ReturnType, RootReduxStateType, unknown, AnyAction>
 

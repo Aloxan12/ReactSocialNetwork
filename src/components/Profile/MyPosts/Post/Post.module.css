@@ -1,7 +1,51 @@
-.item {
-  color: rgb(190, 218, 33);
+.content{
+  display: flex;
+  flex-direction: row;
 }
-.item img{
-  width: 50px;
-  border-radius: 25px;
+.item {
+  margin-top: 20px;
+}
+.avatar{
+  width: 70px;
+  border-radius: 50%;
+}
+.like{
+  padding: 3px;
+  color: white;
+}
+.like span{
+  color: #ccc;
+}
+.messages{
+  margin: 40px 20px;
+  padding: 25px;
+  border-radius: 6px;
+  max-width: 300px;
+  min-height: 40px;
+  word-wrap: break-word;
+  background-color: #ccc;
+  position: relative;
+}
+.text{
+  z-index: 20;
+}
+.corner{
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: -15px;
+  width: 0;
+  height: 0;
+  border-top: 15px solid #ccc;
+  border-left: 22px solid transparent;
+  border-right: 2px solid transparent;
+}
+.removeBtn{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 4px;
+  padding: 0 5px;
+  border: none;
+  cursor: pointer;
 }

@@ -1,5 +1,6 @@
 import {required} from "../../../../utils/validators/validators";
 import React from "react";
+import classes from './AddPostForm.module.css'
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, GetStringKeys, Textarea} from "../../../Common/FormsControls/FormsControls";
 
@@ -18,7 +19,7 @@ export const AddPostForm: React.FC<InjectedFormProps<AddPostFormValuesType, Prop
                 {createField<AddPostFormValuesTypeKeys>("Your post", 'newPostText', [required], Textarea) }
             </div>
             <div>
-                <button>Send</button>
+                <button className={classes.btn}>Send</button>
             </div>
         </form>
     )

@@ -1,8 +1,10 @@
 import React from 'react';
 import classes from "./MyPosts.module.css"
 import Post from './Post/Post';
-import {PostType} from "../../../redux/profile-reducer";
+import {actions, PostType} from "../../../redux/profile-reducer";
 import {AddPostFormRedux, AddPostFormValuesType} from './AddPostForm/AddPostForm';
+import {v1} from "uuid";
+import {useDispatch} from "react-redux";
 
 export type MapPropsType = {
     posts: Array<PostType>
@@ -12,16 +14,23 @@ export type DispatchPropsType = {
 }
 
 const MyPosts: React.FC<MapPropsType & DispatchPropsType> = props => {
+    const dispatch = useDispatch()
     let postsElement =
         [...props.posts]
             .reverse()
-            .map(p =>
-                <Post message={p.message}
-                      key={p.id}
-                      likeCounts={p.likeCounts}
-                      id={new Date().getTime()}/>)
+            .map(p => {
+                const removePost = () => {
+                    dispatch(actions.deletePostAC(p.id))
+                }
+                return <Post message={p.message}
+                             key={p.id}
+                             likeCounts={p.likeCounts}
+                             id={v1()}
+                             removeMessage={removePost}
+                />
+            })
 
-    let addNewMessage = (value: AddPostFormValuesType) => {
+    const addNewMessage = (value: AddPostFormValuesType) => {
         props.addPost(value.newPostText)
     }
     return (
