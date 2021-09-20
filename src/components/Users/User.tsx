@@ -7,40 +7,39 @@ import {UserType} from "../../redux/types/types";
 
 type UserPropsType = {
     user: UserType
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     followingIsProgress: Array<number>
 }
 
-export const User =(props: UserPropsType) => {
-    let u = props.user;
+export const User:React.FC<UserPropsType> =({user, follow, unfollow, followingIsProgress}) => {
     return (
         <div>
 
             <div>
                     <span>
                         <div>
-                           <NavLink to={'/profile/' + u.id}>
-                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                           <NavLink to={'/profile/' + user.id}>
+                                <img src={user.photos.small != null ? user.photos.small : userPhoto}
                                      className={styles.UsersPhoto}/>
                            </NavLink>
                         </div>
                         <div>
-                            {u.followed
-                                ? <button disabled={props.followingIsProgress.some(id => id === u.id)}
+                            {user.followed
+                                ? <button disabled={followingIsProgress.some(id => id === user.id)}
                                           onClick={() => {
-                                              props.unfollow(u.id)
+                                              unfollow(user.id)
                                           }}>Unfollow</button>
-                                : <button disabled={props.followingIsProgress.some(id => id === u.id)}
+                                : <button disabled={followingIsProgress.some(id => id === user.id)}
                                           onClick={() => {
-                                              props.follow(u.id)
+                                              follow(user.id)
                                           }}>Follow</button>}
                         </div>
                     </span>
                 <span>
                         <span>
-                            <div>{u.name}</div>
-                            <div>{u.status}</div>
+                            <div>{user.name}</div>
+                            <div>{user.status}</div>
                         </span>
                         <span>
                             <div>{"u.location.country"}</div>

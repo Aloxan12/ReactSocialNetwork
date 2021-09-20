@@ -1,4 +1,4 @@
-import {Action, AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
+import {Action, AnyAction, applyMiddleware, combineReducers, createStore, compose} from "redux";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
@@ -14,7 +14,11 @@ import {appWatcherSaga} from "./app-sagas";
 import {authWatcherSaga} from "./auth-sagas";
 
 
-let rootReducer = combineReducers({
+
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage:dialogsReducer,
     navbarPage:navbarReducer,
@@ -33,8 +37,7 @@ if(persistedTodosString){
 }
 
 
-let store = createStore(rootReducer,preloadedState, applyMiddleware(thunkMiddleware, sagaMiddleware));
-export type StoreReduxType = typeof store
+const store = createStore(rootReducer,preloadedState, composeEnhancers(applyMiddleware(thunkMiddleware, sagaMiddleware)));
 
 store.subscribe(()=>{
     localStorage.setItem('app-state', JSON.stringify(store.getState()))

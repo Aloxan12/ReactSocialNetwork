@@ -3,13 +3,14 @@ import {APIResponseType, ResultCodesEnum} from "../api/api";
 import {UserType} from "./types/types";
 import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {UsersAPI} from "../api/users-api";
+import {updateObjectInArray} from "../utils/object-helpers";
 
 let initialState = {
     users: [] as Array<UserType>,
     pageSize: 10,
     totalUsersCounts: 0,
     currentPage: 1,
-    isFetching: false,
+    isFetching: true,
     followingIsProgress: [] as Array<number>,
     filter: {
         term: '',
@@ -21,24 +22,12 @@ export const usersReducer = (state = initialState, action: ActionsTypes): Initia
         case "FOLLOW":
             return {
                 ...state,
-                //users:[...state.users]  идентичная запись
-                users: state.users.map(u => {
-                    if (u.id === action.userID) {
-                        return {...u, followed: true}
-                    }
-                    return u
-                })
+                users: updateObjectInArray(state.users, action.userID, 'id', {followed: true})
             }
         case "UNFOLLOW":
             return {
                 ...state,
-                //users:[...state.users]  идентичная запись
-                users: state.users.map(u => {
-                    if (u.id === action.userID) {
-                        return {...u, followed: false}
-                    }
-                    return u
-                })
+                users: updateObjectInArray(state.users, action.userID, 'id', {followed: false})
             }
         case "SET_USERS":
             return {...state, users: action.users}
@@ -89,7 +78,7 @@ export const getUsers = (currentPage: number, pageSize: number, filter: FilterTy
         dispatch(actions.setTotalUsersCount(data.totalCount))
     }
 }
-const followUnfollow = async (dispatch: Dispatch<ActionsTypes>, userId: number,apiMethod:  (userId: number) => Promise<APIResponseType>, actionCreator: (userId: number) => ActionsTypes )=>{
+const followUnfollow = async (dispatch: Dispatch<ActionsTypes>, userId: number,apiMethod:(userId: number) => Promise<APIResponseType>, actionCreator: (userId: number) => ActionsTypes )=>{
     dispatch(actions.toggleFollowingIsProgress(true, userId))
     let response = await apiMethod(userId)
     if (response.resultCode === ResultCodesEnum.Success) {

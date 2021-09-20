@@ -9,15 +9,11 @@ export const UsersAPI = {
     },
     unfollow(id: number | null) {
         return instance.delete(`follow/${id}`)
-            .then(response => {
-                return response.data
-            }) as Promise<APIResponseType>
+            .then(response => response.data) as Promise<APIResponseType>
     },
     follow(id: number | null) {
         return instance.post<APIResponseType>(`follow/${id}`)
-            .then(response => {
-                return response.data
-            })
+            .then(response => response.data)
     },
     getProfile(userId: number | null) {
         return ProfileAPI.getProfile(userId)
