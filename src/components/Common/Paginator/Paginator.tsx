@@ -34,7 +34,7 @@ export const Paginator: React.FC<PaginatorType> = ({totalItemCounts,
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map((p) => {
-                return <span className={ cn({
+                return <span key={p} className={ cn({
                     [styles.selectedPage]: currentPage === p
                 }) }
                              onClick={(e) => {
