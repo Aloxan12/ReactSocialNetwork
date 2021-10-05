@@ -1,8 +1,8 @@
 import React from 'react'
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, GetStringKeys, Input} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {RootReduxStateType} from "../../redux/redux-store";
