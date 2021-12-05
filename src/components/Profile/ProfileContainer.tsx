@@ -72,7 +72,6 @@ const mapStateToProps =(state: RootReduxStateType)=>{
         authorizedUserId: state.auth.id,
     }
 }
-
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile}),
     withRouter,
