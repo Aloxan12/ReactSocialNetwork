@@ -64,7 +64,6 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 }
 
-
 const mapStateToProps =(state: RootReduxStateType)=>{
     return {
         profile: state.profilePage.profile,
@@ -72,6 +71,7 @@ const mapStateToProps =(state: RootReduxStateType)=>{
         authorizedUserId: state.auth.id,
     }
 }
+
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile}),
     withRouter,
