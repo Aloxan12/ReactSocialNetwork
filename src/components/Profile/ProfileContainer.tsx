@@ -20,6 +20,8 @@ type PathParamType = {
     userId: string
 }
 
+
+
 type MapStateToPropsType =  ReturnType<typeof mapStateToProps>
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<PathParamType>
