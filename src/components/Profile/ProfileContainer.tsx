@@ -9,7 +9,6 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {ProfileType} from "../../redux/types/types";
 
-
 type MapDispatchToPropsType = {
     getUserProfile:(userId: number | null)=> void
     getStatus:(userId: number | null)=> void
