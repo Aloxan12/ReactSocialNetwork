@@ -1,9 +1,12 @@
 import React from "react";
-import preloader from "../../../assets/images/loader.gif";
+import styles from './Preloader.module.css'
 
 const Preloader = React.memo(()=>{
-    return <div>
-        <img src={preloader}/>
-    </div>
+    return(
+    <div className={styles.loaderCircleBody}>
+        <div className={styles.loaderCircleWrapper}>
+            <div className={styles.loaderCircle}></div>
+        </div>
+    </div>)
 })
 export default Preloader
