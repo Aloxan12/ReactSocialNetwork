@@ -17,6 +17,7 @@ import {initialStateType} from "./redux/navbar-reducer";
 import {Breadcrumb, Layout, Menu} from "antd";
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import Header from "./components/Header/Header";
+import { SliderPage } from './components/SliderPage/SliderPage';
 
 
 const { SubMenu } = Menu;
@@ -73,6 +74,9 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
                 <SubMenu key="sub3" icon={<NotificationOutlined />} title="Chat">
                   <Menu.Item key="9"><Link to="/chat" >Chat</Link></Menu.Item>
                 </SubMenu>
+                <SubMenu key="sub4" icon={<NotificationOutlined />} title="Chat">
+                  <Menu.Item key="10"><Link to="/slider" >Slider</Link></Menu.Item>
+                </SubMenu>
               </Menu>
             </Sider>
             <Content style={{ padding: '0 24px', minHeight: 280 }}>
@@ -80,6 +84,7 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
               <Route path='/profile/:userId?' render={() => <SuspendedProfile/>}/>
               <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
               <Route path='/chat' render={() => <SuspendedChat/>}/>
+              <Route path='/slider' render={() => <SliderPage />}/>
               <Route path='/users' render={() => <UsersContainer pageTitle={'Пользователи'} />}/>
               <Route path='/login' render={() => <Login/>}/>
               <Route path='/music' render={() => <Music/>}/>
