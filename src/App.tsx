@@ -74,7 +74,7 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
                 <SubMenu key="sub3" icon={<NotificationOutlined />} title="Chat">
                   <Menu.Item key="9"><Link to="/chat" >Chat</Link></Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub4" icon={<NotificationOutlined />} title="Chat">
+                <SubMenu key="sub4" icon={<NotificationOutlined />} title="Slider">
                   <Menu.Item key="10"><Link to="/slider" >Slider</Link></Menu.Item>
                 </SubMenu>
               </Menu>
