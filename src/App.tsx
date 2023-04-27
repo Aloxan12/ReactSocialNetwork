@@ -17,7 +17,6 @@ import {initialStateType} from "./redux/navbar-reducer";
 import {Breadcrumb, Layout, Menu} from "antd";
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import Header from "./components/Header/Header";
-import { SliderPage } from './components/SliderPage/SliderPage';
 
 
 const { SubMenu } = Menu;
@@ -84,7 +83,6 @@ class App extends React.Component<mapStateToPropsType & mapDispatchToPropsType> 
               <Route path='/profile/:userId?' render={() => <SuspendedProfile/>}/>
               <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
               <Route path='/chat' render={() => <SuspendedChat/>}/>
-              <Route path='/slider' render={() => <SliderPage />}/>
               <Route path='/users' render={() => <UsersContainer pageTitle={'Пользователи'} />}/>
               <Route path='/login' render={() => <Login/>}/>
               <Route path='/music' render={() => <Music/>}/>
